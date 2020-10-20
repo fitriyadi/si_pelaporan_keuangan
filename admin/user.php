@@ -8,7 +8,7 @@
       <div class="col-sm-5">
       </div>
       <div class="col-sm-1">
-        <a href="?hal=akun_olah" style="float: right;" class="btn btn-block bg-gradient-primary btn-sm">Tambah</a>
+        <a href="?hal=user_olah" style="float: right;" class="btn btn-block bg-gradient-primary btn-sm">Tambah</a>
       </div><!-- /.col -->
     </div><!-- /.row -->
   </div><!-- /.container-fluid -->
@@ -32,6 +32,7 @@
             <thead>
               <tr>
                 <th>No</th>
+                <th>Unit</th>
                 <th>Nama</th>
                 <th>Nama Lengkap</th>
                 <th>Username</th>
@@ -42,7 +43,7 @@
             <tbody>
               <?php
 
-              $query="SELECT * from tb_user";
+              $query="SELECT * from tb_user join tb_unit using(id_unit)";
               $result=$mysqli->query($query);
               $num_result=$result->num_rows;
               if ($num_result > 0 ) { 
@@ -52,6 +53,7 @@
                   ?>
                   <tr>
                     <td width="5%"><?php echo $no+=1; ?></td>
+                    <td><?php echo $nama_unit; ?></td>
                     <td><?php echo $nama_user; ?></td>
                     <td><?php echo $nama_lengkap_user; ?></td>
                     <td><?php echo $username; ?></td>
@@ -60,10 +62,10 @@
 
                   <td width="15%">
 
-                    <a href="?hal=akun_olah&id=<?php echo $id_user; ?>" 
+                    <a href="?hal=user_olah&id=<?php echo $id_user; ?>" 
                       class="btn btn-icon btn-primary" title="Edit Data"><i class="fa fa-edit"></i> </a>
 
-                      <a class="btn btn-danger" title="Hapus Data" href="akun_proses.php?hapus=<?php echo $id_user;?>" 
+                      <a class="btn btn-danger" title="Hapus Data" href="user_proses.php?hapus=<?php echo $id_user;?>" 
                         onclick="return confirm('Apakah anda yakin akan menghapus data ini?')"> <i class="fa fa-trash"></i></a>
 
                       </td>

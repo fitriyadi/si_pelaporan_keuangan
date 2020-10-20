@@ -24,7 +24,7 @@ if (isset($_GET['id'])){
 
               <div class="form-group">
                 <label for="nama">Kode Akun</label>
-                <input type="text" name="kode_akun" class="form-control" value="<?=@$kode_akun?>" placeholder="Inputkan Kode Akun" required="">
+                <input type="text" name="kode_akun" class="form-control" value="<?=@$kode_akun?>" placeholder="Inputkan Kode Akun" required="" <?=isset($_GET['id'])?'readonly':'';?>>
               </div>
 
               <div class="form-group">

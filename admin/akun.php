@@ -31,7 +31,6 @@
           <table id="example2" class="table table-bordered table-hover">
             <thead>
               <tr>
-                <th>No</th>
                 <th>Kode Akun</th>
                 <th>Nama Akun</th>
                 <th>Aksi</th>
@@ -49,17 +48,16 @@
                   extract($data);
                   ?>
                   <tr>
-                    <td width="5%"><?php echo $no+=1; ?></td>
                     <td><?php echo $kode_akun; ?></td>
                     <td><?php echo $nama_akun; ?></td>
                   </td>
 
                   <td width="15%">
 
-                    <a href="?hal=akun_olah&id=<?php echo $idakun; ?>" 
+                    <a href="?hal=akun_olah&id=<?=$kode_akun; ?>" 
                       class="btn btn-icon btn-primary" title="Edit Data"><i class="fa fa-edit"></i> </a>
 
-                      <a class="btn btn-danger" title="Hapus Data" href="akun_proses.php?hapus=<?php echo $idakun;?>" 
+                      <a class="btn btn-danger" title="Hapus Data" href="akun_proses.php?hapus=<?=$kode_akun;?>" 
                         onclick="return confirm('Apakah anda yakin akan menghapus data ini?')"> <i class="fa fa-trash"></i></a>
 
                       </td>

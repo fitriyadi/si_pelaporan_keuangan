@@ -2,7 +2,7 @@
 $username="";
 if (isset($_GET['id'])){
   $kode=$_GET['id'];
-  extract(ArrayData($mysqli,"tb_admin","id_admin='$kode'"));
+  extract(ArrayData($mysqli,"tb_user","id_user='$kode'"));
 }
 ?>
 
@@ -15,24 +15,41 @@ if (isset($_GET['id'])){
         <!-- jquery validation -->
         <div class="card card-primary">
           <div class="card-header">
-            <h3 class="card-title">Olah Data Admin</h3>
+            <h3 class="card-title">Olah Data User Unit Usaha</h3>
           </div>
           <!-- /.card-header -->
           <!-- form start -->
-          <form role="form" id="quickForm" action="admin_proses.php" method="post">
+          <form role="form" id="quickForm" action="user_proses.php" method="post">
 
             <div class="card-body">
 
-              <input type="hidden" name="id_admin" value="<?=$id_admin;?>">
+              <input type="hidden" name="id_user" value="<?=$id_user;?>">
 
               <div class="form-group">
-                <label for="nama">Nama Admin</label>
-                <input type="text" name="nama_admin" class="form-control" value="<?=@$nama_admin?>" placeholder="Inputkan Nama Admin" required="">
+                <label for="nama">Unit Usaha</label>
+                <select class="form-control select2" name="id_unit">
+                  <?php
+                  $query="SELECT * from tb_unit";
+                  $result=$mysqli->query($query);
+                  $num_result=$result->num_rows;
+                  if ($num_result > 0 ) { 
+                    $no=0;
+                    while ($data=mysqli_fetch_assoc($result)) { ?>
+                      <option value="<?=$data['id_unit']?>" <?=isselect($data['id_unit'],$id_unit)?>><?=$data['nama_unit']?></option>
+                    <?php }
+                  }
+                  ?>
+                </select>
               </div>
 
               <div class="form-group">
-                <label for="nama">Nama Lengkap Admin</label>
-                <input type="text" name="nama_lengkap_admin" class="form-control" value="<?=@$nama_lengkap_admin?>" placeholder="Inputkan Nama Lengkap Admin" required="">
+                <label for="nama">Nama User</label>
+                <input type="text" name="nama_user" class="form-control" value="<?=@$nama_user?>" placeholder="Inputkan Nama user" required="">
+              </div>
+
+              <div class="form-group">
+                <label for="nama">Nama Lengkap User</label>
+                <input type="text" name="nama_lengkap_user" class="form-control" value="<?=@$nama_lengkap_user?>" placeholder="Inputkan Nama Lengkap user" required="">
               </div>
 
               <div class="form-group">
@@ -52,7 +69,7 @@ if (isset($_GET['id'])){
             <div class="card-footer">
               <input type="submit" name="<?=isset($_GET['id'])?'ubah':'tambah';?>" 
               class="btn btn-primary" value="Simpan">
-              <a href="?hal=admin" class="btn btn-default">
+              <a href="?hal=user" class="btn btn-default">
                 Batal
               </a>
             </div>
@@ -65,4 +82,4 @@ if (isset($_GET['id'])){
     <!-- /.row -->
   </div><!-- /.container-fluid -->
 </section>
-<!-- /.content -->
+                      <!-- /.content -->

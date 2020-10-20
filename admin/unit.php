@@ -32,8 +32,9 @@
             <thead>
               <tr>
                 <th>No</th>
-                <th>Kode unit</th>
-                <th>Nama unit</th>
+                <th>Nama Unit</th>
+                <th>Jenis Usaha</th>
+                <th>User</th>
                 <th>Aksi</th>
               </tr>
             </thead>
@@ -50,13 +51,14 @@
                   ?>
                   <tr>
                     <td width="5%"><?php echo $no+=1; ?></td>
-                    <td><?php echo $id_unit; ?></td>
-                    <td><?php echo $nama_unit; ?></td>
+                    <td><?=$nama_unit; ?></td>
+                    <td><?=$jenis_usaha; ?></td>
+                    <td><?=$jenis_usaha; ?></td>
                   </td>
 
                   <td width="15%">
 
-                    <a href="?hal=unit_olah&id=<?php echo $id_unit; ?>" 
+                    <a href="?hal=unit_olah&id=<?=$id_unit; ?>" 
                       class="btn btn-icon btn-primary" title="Edit Data"><i class="fa fa-edit"></i> </a>
 
                       <a class="btn btn-danger" title="Hapus Data" href="unit_proses.php?hapus=<?php echo $id_unit;?>" 
@@ -64,16 +66,16 @@
 
                       </td>
                     </tr>
-                    <?php }} ?>
-                  </table>
-                </div>
-                <!-- /.card-body -->
+                  <?php }} ?>
+                </table>
               </div>
-              <!-- /.card -->
+              <!-- /.card-body -->
             </div>
-            <!-- /.col -->
+            <!-- /.card -->
           </div>
-          <!-- /.row -->
-        </section>
-        <!-- /.content -->
+          <!-- /.col -->
+        </div>
+        <!-- /.row -->
+      </section>
+      <!-- /.content -->
 

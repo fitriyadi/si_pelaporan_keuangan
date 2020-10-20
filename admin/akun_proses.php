@@ -12,14 +12,14 @@ if(isset($_POST['tambah']))
 		VALUES (?,?)");
 
 	$stmt->bind_param("ss", 
-		mysqli_real_escape_string($mysqli, $_POST['kode_akun']),
-		mysqli_real_escape_string($mysqli, $_POST['nama_akun']));	
+		$_POST['kode_akun'],
+		$_POST['nama_akun']);	
 
 	if ($stmt->execute()) { 
 		echo "<script>alert('Data akun Berhasil Disimpan')</script>";
 		echo "<script>window.location='index.php?hal=akun';</script>";	
 	} else {
-		echo "<script>alert('Data akun Gagal Disimpan')</script>";
+		echo "<script>alert('Data akun Gagal Disimpan, Kode Akun sudah ada')</script>";
 		echo "<script>window.location='javascript:history.go(-1)';</script>";
 	}
 
@@ -29,9 +29,9 @@ if(isset($_POST['tambah']))
 	$stmt = $mysqli->prepare("UPDATE tb_akun  SET 
 		nama_akun=?
 		where kode_akun=?");
-	$stmt->bind_param("ssss",
-		mysqli_real_escape_string($mysqli, $_POST['nama_akun']),
-		mysqli_real_escape_string($mysqli, $_POST['kode_akun']));	
+	$stmt->bind_param("ss",
+		$_POST['nama_akun'],
+		$_POST['kode_akun']);	
 
 	if ($stmt->execute()) { 
 		echo "<script>alert('Data akun Berhasil Diubah')</script>";
@@ -45,7 +45,7 @@ if(isset($_POST['tambah']))
 
 	//Proses hapus
 	$stmt = $mysqli->prepare("DELETE FROM tb_akun where kode_akun=?");
-	$stmt->bind_param("s",mysqli_real_escape_string($mysqli, $_GET['hapus'])); 
+	$stmt->bind_param("s",$_GET['hapus']); 
 
 	if ($stmt->execute()) { 
 		echo "<script>alert('Data akun Berhasil Dihapus')</script>";

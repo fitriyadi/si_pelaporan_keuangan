@@ -12,8 +12,8 @@ if(isset($_POST['tambah']))
 		VALUES (?,?)");
 
 	$stmt->bind_param("ss", 
-		mysqli_real_escape_string($mysqli, $_POST['nama_unit']),
-		mysqli_real_escape_string($mysqli, $_POST['jenis_usaha']));	
+		$_POST['nama_unit'],
+		$_POST['jenis_usaha']);	
 
 	if ($stmt->execute()) { 
 		echo "<script>alert('Data unit Berhasil Disimpan')</script>";
@@ -31,9 +31,9 @@ if(isset($_POST['tambah']))
 		jenis_usaha=?
 		where id_unit=?");
 	$stmt->bind_param("sss",
-		mysqli_real_escape_string($mysqli, $_POST['nama_unit']),
-		mysqli_real_escape_string($mysqli, $_POST['jenis_usaha']),
-		mysqli_real_escape_string($mysqli, $_POST['kode']));	
+		$_POST['nama_unit'],
+		$_POST['jenis_usaha'],
+		$_POST['kode']);	
 
 	if ($stmt->execute()) { 
 		echo "<script>alert('Data unit Berhasil Diubah')</script>";
@@ -47,7 +47,7 @@ if(isset($_POST['tambah']))
 
 	//Proses hapus
 	$stmt = $mysqli->prepare("DELETE FROM tb_unit where id_unit=?");
-	$stmt->bind_param("s",mysqli_real_escape_string($mysqli, $_GET['hapus'])); 
+	$stmt->bind_param("s",$_GET['hapus']); 
 
 	if ($stmt->execute()) { 
 		echo "<script>alert('Data unit Berhasil Dihapus')</script>";

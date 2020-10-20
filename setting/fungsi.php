@@ -50,6 +50,11 @@ function isselect($x,$y){
   }
 }
 
-$arrayajaran = array('2019/2020','2020/2021');
+function replunit($id){
+  if($id<10)
+    return "0".$id;
+  else
+    return $id;
+}
 
 ?>

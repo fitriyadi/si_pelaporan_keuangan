@@ -23,7 +23,7 @@
 				<div class="icon">
 					<i class="fa fa-user"></i>
 				</div>
-				<a href="?hal=siswa&get=aktif" class="small-box-footer">Detail <i class="fa fa-arrow-circle-right"></i></a>
+				<a href="?hal=unit" class="small-box-footer">Detail <i class="fa fa-arrow-circle-right"></i></a>
 			</div>
 		</div>
 		<!-- ./col -->
@@ -31,14 +31,14 @@
 			<!-- small box -->
 			<div class="small-box bg-warning">
 				<div class="inner">
-					<h3><?=JumlahData($mysqli,"tb_user")?></h3>
+					<h3><?=JumlahData($mysqli,"tb_index")?></h3>
 
-					<p>Data Akun</p>
+					<p>Data Index</p>
 				</div>
 				<div class="icon">
 					<i class="fa fa-book"></i>
 				</div>
-				<a href="?hal=kelas" class="small-box-footer">Detail <i class="fas fa-arrow-circle-right"></i></a>
+				<a href="?hal=ind" class="small-box-footer">Detail <i class="fas fa-arrow-circle-right"></i></a>
 			</div>
 		</div>
 
@@ -53,7 +53,7 @@
 				<div class="icon">
 					<i class="fa fa-book"></i>
 				</div>
-				<a href="?hal=siswa&get=non" class="small-box-footer">Detail <i class="fas fa-arrow-circle-right"></i></a>
+				<a href="?hal=akun" class="small-box-footer">Detail <i class="fas fa-arrow-circle-right"></i></a>
 			</div>
 		</div>
 
@@ -69,7 +69,7 @@
 				<div class="icon">
 					<i class="fa fa-book"></i>
 				</div>
-				<a href="?hal=agenda&get=all" class="small-box-footer">Detail <i class="fas fa-arrow-circle-right"></i></a>
+				<a href="?hal=user" class="small-box-footer">Detail <i class="fas fa-arrow-circle-right"></i></a>
 			</div>
 		</div>
 		<!-- ./col -->

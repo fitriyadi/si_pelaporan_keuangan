@@ -45,6 +45,7 @@ if (isset($_GET['id'])){
                 Batal
               </a>
             </div>
+            
           </form>
         </div>
         <!-- /.card -->

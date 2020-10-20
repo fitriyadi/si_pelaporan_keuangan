@@ -8,7 +8,7 @@
       <div class="col-sm-5">
       </div>
       <div class="col-sm-1">
-        <a href="?hal=akun_olah" style="float: right;" class="btn btn-block bg-gradient-primary btn-sm">Tambah</a>
+        <a href="?hal=admin_olah" style="float: right;" class="btn btn-block bg-gradient-primary btn-sm">Tambah</a>
       </div><!-- /.col -->
     </div><!-- /.row -->
   </div><!-- /.container-fluid -->
@@ -41,17 +41,16 @@
             </thead>
             <tbody>
               <?php
-
-              $query="SELECT * from tb_admin";
-              $result=$mysqli->query($query);
-              $num_result=$result->num_rows;
-              if ($num_result > 0 ) { 
-                $no=0;
-                while ($data=mysqli_fetch_assoc($result)) {
+              $query      = "SELECT * from tb_admin";
+              $result     = $mysqli->query($query);
+              $num_result = $result->num_rows;
+              if ($num_result > 0) {
+                $no = 0;
+                while ($data = mysqli_fetch_assoc($result)) {
                   extract($data);
                   ?>
                   <tr>
-                    <td width="5%"><?php echo $no+=1; ?></td>
+                    <td width="5%"><?php echo $no += 1; ?></td>
                     <td><?php echo $nama_admin; ?></td>
                     <td><?php echo $nama_lengkap_admin; ?></td>
                     <td><?php echo $username; ?></td>
@@ -60,15 +59,15 @@
 
                   <td width="15%">
 
-                    <a href="?hal=akun_olah&id=<?php echo $id_admin; ?>" 
+                    <a href="?hal=admin_olah&id=<?php echo $id_admin; ?>"
                       class="btn btn-icon btn-primary" title="Edit Data"><i class="fa fa-edit"></i> </a>
 
-                      <a class="btn btn-danger" title="Hapus Data" href="akun_proses.php?hapus=<?php echo $id_admin;?>" 
+                      <a class="btn btn-danger" title="Hapus Data" href="admin_proses.php?hapus=<?php echo $id_admin; ?>"
                         onclick="return confirm('Apakah anda yakin akan menghapus data ini?')"> <i class="fa fa-trash"></i></a>
 
                       </td>
                     </tr>
-                  <?php }} ?>
+                  <?php }}?>
                 </table>
               </div>
               <!-- /.card-body -->
