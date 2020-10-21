@@ -3,7 +3,7 @@
   <div class="container-fluid">
     <div class="row mb-2">
       <div class="col-sm-12">
-        <h1 class="m-0 text-dark">Transaksi Keuangan [<?=caridata($mysqli,"select nama_unit from tb_unit where id_unit='".$_GET['id']."'")?>]</h1>
+        <h1 class="m-0 text-dark">Transaksi Keuangan [<?=caridata($mysqli,"select nama_unit from tb_unit where id_unit='".$_SESSION['id']."'")?>]</h1>
       </div><!-- /.col -->
     </div><!-- /.row -->
   </div><!-- /.container-fluid -->
@@ -23,7 +23,7 @@
         <!-- /.card-header -->
         <div class="card-body">
           <?php
-          $id_unit=$_GET['id'];
+          $id_unit=$_SESSION['id'];
           if(isset($_POST['par1'])){
 
 
@@ -45,7 +45,7 @@
           $where="where id_unit='$id_unit'";
         }
         ?>
-        <form role="form" id="quickForm" action="?hal=transaksi_data&id=<?=$id_unit?>" method="post">
+        <form role="form" id="quickForm" action="?hal=transaksi_data&id=1" method="post">
           <div class="form-group row">
             <label for="nama" class="col-1 m-2">Akun</label>
             <select class="form-control select2 col-3" name="id_akun">

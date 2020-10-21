@@ -41,7 +41,7 @@ if (isset($_GET['id'])){
             <div class="card-footer">
               <input type="submit" name="<?=isset($_GET['id'])?'ubah':'tambah';?>" 
               class="btn btn-primary" value="Simpan">
-              <a href="?hal=agenda" class="btn btn-default">
+              <a href="?hal=unit" class="btn btn-default">
                 Batal
               </a>
             </div>

@@ -38,7 +38,6 @@
             </thead>
             <tbody>
               <?php
-
               $query="SELECT * from tb_akun";
               $result=$mysqli->query($query);
               $num_result=$result->num_rows;

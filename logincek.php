@@ -9,6 +9,7 @@ $pass=$_POST['password'];
 
   //Pengecekan ada data dalam login tidak
 $sqladmin="Select id_admin from tb_admin where username='$user' and password='$pass'";
+$sqluser="Select id_unit from tb_user where username='$user' and password='$pass'";
 
 
 if (CekExist($mysqli,$sqladmin)== true){
@@ -17,6 +18,13 @@ if (CekExist($mysqli,$sqladmin)== true){
 	$_SESSION['admin']=caridata($mysqli,$sqladmin);
 	echo "<script>alert('Anda login sebagai admin')</script>";
 	echo "<script>window.location='admin/index.php?hal=beranda';</script>";
+
+}else if (CekExist($mysqli,$sqluser)== true){
+
+    //JIka data ditemukan
+	$_SESSION['id']=caridata($mysqli,$sqluser);
+	echo "<script>alert('Anda login sebagai user cabang')</script>";
+	echo "<script>window.location='user/index.php?hal=beranda';</script>";
 
 }else{
     //Jika tidak ditemukan

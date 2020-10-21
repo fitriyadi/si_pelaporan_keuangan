@@ -5,7 +5,7 @@ require_once '../setting/tanggal.php';
 require_once '../setting/fungsi.php';
 session_start();
 
-$id_user='1';
+$id_user=$_SESSION['id'];
 
 if(isset($_POST['tambah'])){	
 	//Simpan Ke Sesi
@@ -51,30 +51,44 @@ if(isset($_POST['tambah'])){
 		echo "<script>window.location='javascript:history.go(-1)';</script>";
 	}
 
-}else if(isset($_POST['simpan'])){	
-//Proses penambahan index
-	$stmt = $mysqli->prepare("INSERT INTO tb_admin 
-		(nama_admin,nama_lengkap_admin,username,password) 
-		VALUES (?,?,?,?)");
+}else if(isset($_POST['simpan'])){
 
-	$stmt->bind_param("ssss", 
-		$_POST['nama_admin'],
-		$_POST['nama_lengkap_admin'],
-		$_POST['username'],
-		$_POST['password']);	
+	//print_r($_POST);	
+	//Proses penambahan index
+	$query      = "SELECT * from temp_transaksi where id_user='$id_user'";
+	$result     = $mysqli->query($query);
+	$num_result = $result->num_rows;
+	if ($num_result > 0) {
+		while ($data = mysqli_fetch_assoc($result)) {
+			//print_r($data);
+			extract($data);
 
-	if ($stmt->execute()) { 
-		echo "<script>alert('Data admin Berhasil Disimpan')</script>";
-		echo "<script>window.location='index.php?hal=admin';</script>";	
-	} else {
-		echo "<script>alert('Data admin Gagal Disimpan')</script>";
-		echo "<script>window.location='javascript:history.go(-1)';</script>";
-	}
+			$stmt = $mysqli->prepare("INSERT INTO tb_transaksi 
+				(id_transaksi,tanggal,id_unit,kode_akun,id_index,keterangan,debet,kredit) 
+				VALUES (?,?,?,?,?,?,?,?)");
 
-}e
+			$stmt->bind_param("ssssssss", 
+				$_POST['id_transaksi'],
+				$_POST['tanggal'],
+				$_POST['id_unit'],
+				$id_akun,
+				$id_index,
+				$_POST['keterangan'],
+				$debet,
+				$kredit);	
 
+			$stmt->execute();
+		}
+	}	
 
-//Hapus Isi data
+	//Clear Data
+	mysqli_query($mysqli,"DELETE FROM temp_transaksi where id_user='$id_user'");
+
+	//Notif
+	echo "<script>alert('Transaksi Berhasil Disimpan')</script>";
+	echo "<script>window.location='index.php?hal=transaksi_data';</script>";	
+}
+
 
 function simpan($mysqli,$id_user,$id_akun,$id_index,$debet,$kredit){
 	$stmt = $mysqli->prepare("INSERT INTO temp_transaksi 

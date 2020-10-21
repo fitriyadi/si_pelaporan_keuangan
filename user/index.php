@@ -5,9 +5,8 @@ require_once '../setting/tanggal.php';
 require_once '../setting/fungsi.php';
 
 session_start();
-$_SESSION['admin']='';
 $_SESSION['id']='1';
-if(isset($_SESSION['admin'])){
+if(isset($_SESSION['id'])){
   ?>
   <!DOCTYPE html>
 <!--
