@@ -38,14 +38,16 @@ if($_POST['hasil']==$hasil){
 
     //JIka data ditemukan
 		$_SESSION['id']=caridata($mysqli,$sqluser);
-		echo "<script>alert('Anda login sebagai user cabang')</script>";
+		$_SESSION['user_status']="User Transaksi";
+		echo "<script>alert('Anda login sebagai user Transaksi')</script>";
 		echo "<script>window.location='user/index.php?hal=beranda';</script>";
 
 	}else if (CekExist($mysqli,$sqluser1)== true){
 
     //JIka data ditemukan
 		$_SESSION['id']=caridata($mysqli,$sqluser1);
-		echo "<script>alert('Anda login sebagai user cabang')</script>";
+		$_SESSION['user_status']="User Kepala";
+		echo "<script>alert('Anda login sebagai user Ketua')</script>";
 		echo "<script>window.location='user/index.php?hal=beranda';</script>";
 
 	}else{

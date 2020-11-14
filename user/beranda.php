@@ -9,7 +9,7 @@ $transaksibulanini=caridata($mysqli,"SELECT count(*) from tb_transaksi  join tb_
 $pendapatan=caridata($mysqli,"SELECT sum(kredit) from tb_transaksi join tb_akun using(kode_akun) join tb_kegiatan using(id_kegiatan) where tb_akun.kode_akun like '4%' and id_unit='$id' and month(tanggal)='$bulan' and year(tanggal)='$tahun'");
 
 
-$pengeluaran=caridata($mysqli,"SELECT sum(kredit) from tb_transaksi join tb_akun using(kode_akun) join tb_kegiatan using(id_kegiatan) where tb_akun.kode_akun like '5%' and id_unit='$id' and month(tanggal)='$bulan' and year(tanggal)='$tahun'");
+$pengeluaran=caridata($mysqli,"SELECT sum(debet) from tb_transaksi join tb_akun using(kode_akun) join tb_kegiatan using(id_kegiatan) where tb_akun.kode_akun like '5%' and id_unit='$id' and month(tanggal)='$bulan' and year(tanggal)='$tahun'");
 
 $laba=$pendapatan-$pengeluaran;
 ?>
@@ -18,7 +18,7 @@ $laba=$pendapatan-$pengeluaran;
 	<div class="container-fluid">
 		<div class="row mb-2">
 			<div class="col-sm-12">
-				<h3 class="m-0 text-dark">Selamat Datang, Admin Cabang [<?=caridata($mysqli,"select nama_unit from tb_unit where id_unit='".$_SESSION['id']."'")?>] </h3>
+				<h3 class="m-0 text-dark">Selamat Datang, <?=$_SESSION['user_status'];?> [<?=caridata($mysqli,"select nama_unit from tb_unit where id_unit='".$_SESSION['id']."'")?>] </h3>
 			</div><!-- /.col -->
 		</div><!-- /.row -->
 	</div><!-- /.container-fluid -->

@@ -13,13 +13,16 @@
 			<i class="fas fa-angle-left right"></i>
 		</p>
 	</a>
+
 	<ul class="nav nav-treeview">
-		<li class="nav-item">
-			<a href="?hal=transaksi_input" class="nav-link">
-				<i class="fa fa-plus nav-icon"></i>
-				<p>Input Transaksi</p>
-			</a>
-		</li>
+		<?php if($_SESSION['user_status']=='User Transaksi'){ ?>
+			<li class="nav-item">
+				<a href="?hal=transaksi_input" class="nav-link">
+					<i class="fa fa-plus nav-icon"></i>
+					<p>Input Transaksi</p>
+				</a>
+			</li>
+		<?php } ?>
 		<li class="nav-item">
 			<a href="?hal=transaksi_data&id=1" class="nav-link"> <!-- active -->
 				<i class="fa fa-flag nav-icon"></i>

@@ -41,7 +41,7 @@ if(isset($_GET['get'])){
 
               <div class="form-group row">
                 <label for="nama" class="col-sm-4">Tanggal</label>
-                <input type="date" name="tanggal" class="form-control col-sm-8" value="<?=@$tanggal?>" placeholder="Inputkan Tanggal" required="">
+                <input type="date" name="tanggal" class="form-control col-sm-8" value="<?=@$tanggal?>" max="<?=date('Y-m-d')?>" placeholder="Inputkan Tanggal" required="">
               </div>
 
               <div class="form-group row">
