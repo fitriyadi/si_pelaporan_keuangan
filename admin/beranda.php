@@ -4,7 +4,7 @@
 	<div class="container-fluid">
 		<div class="row mb-2">
 			<div class="col-sm-6">
-				<h3 class="m-0 text-dark">Selamat Datang, Admin </h3>
+				<h3 class="m-0 text-dark">Selamat Datang, <?=$_SESSION['admin_status'];?> </h3>
 			</div><!-- /.col -->
 		</div><!-- /.row -->
 	</div><!-- /.container-fluid -->

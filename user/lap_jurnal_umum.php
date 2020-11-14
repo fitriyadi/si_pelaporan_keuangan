@@ -28,22 +28,41 @@
 
             @$par1=$_POST['par1'];
             @$par2=$_POST['par2'];
+            @$id_kegiatan=$_POST['id_kegiatan'];
 
-            $where="where id_unit='$id_unit' and (tanggal between '$par1' and '$par2')";
+            $where="where id_kegiatan='$id_kegiatan' and (tanggal between '$par1' and '$par2')";
 
           }else{
             $par1="";
             $par2="";
+            $id_kegiatan="";
 
             $where="where id_unit='$id_unit'";
           }
           ?>
           <form role="form" id="quickForm" action="?hal=lap_jurnal_umum" method="post">
             <div class="form-group row">
+
+              <label for="nama" class="col-1 m-2">Usaha</label>
+              <select class="form-control select2 col-3" name="id_kegiatan">
+                <?php
+                $query="SELECT * from tb_kegiatan where id_unit='$id_unit'";
+                $result=$mysqli->query($query);
+                $num_result=$result->num_rows;
+                if ($num_result > 0 ) { 
+                  $no=0;
+                  while ($data=mysqli_fetch_assoc($result)) { ?>
+                    <option value="<?=$data['id_kegiatan']?>" <?=isselect(@$id_kegiatan,$data['id_kegiatan'])?>><?=$data['nama_kegiatan']?></option>
+                  <?php }
+                }
+                ?>
+              </select>
+
+
               <label  for="nama" class="col-2 m-2">Periode Tanggal</label>
               <input type="date" name="par1" class="form-control col-2" value="<?=@$par1?>" required="">
               <input type="date" name="par2" class="form-control col-2" value="<?=@$par2?>" required="">
-              <div class="col-5">
+              <div class="col-1">
                 <input type="submit" name="proses" class="btn btn-primary" style="float: right" value="Proses">
               </div>
             </div>
@@ -56,7 +75,8 @@
               <tr>
                 <th>No Transaksi</th>
                 <th>Tanggal</th>
-                <th>Keterangan Transaksi</th>
+                <th>Usaha</th>
+                <th>Keterangan</th>
                 <th>Kode Akun</th>
                 <th>Index</th>
                 <th>Debet</th>
@@ -67,7 +87,7 @@
             <tbody>
               <?php
               $saldo=0;
-              $query      = "SELECT * from tb_transaksi $where";
+              $query      = "SELECT * from tb_transaksi join tb_kegiatan using(id_kegiatan) $where";
               $result     = $mysqli->query($query);
               $num_result = $result->num_rows;
               if ($num_result > 0) {
@@ -80,6 +100,7 @@
                   <tr>
                     <td><?php echo $id_transaksi; ?></td>
                     <td><?php echo tgl_indo($tanggal); ?></td>
+                    <td><?php echo $nama_kegiatan; ?></td>
                     <td><?php echo $keterangan; ?></td>
                     <td><?php echo $kode_akun; ?></td>
                     <td><?php echo $id_index; ?></td>

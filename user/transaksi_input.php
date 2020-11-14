@@ -46,7 +46,7 @@ if(isset($_GET['get'])){
 
               <div class="form-group row">
                 <label for="nama" class="col-sm-4">Jenis Usaha</label>
-                <select class="form-control select2 col-sm-8" name="id_kegiatan">
+                <select class="form-control select2 col-sm-8" name="id_kegiatan" required="">
                   <?php
                   $query="SELECT * from tb_kegiatan where id_unit='$id_unit'";
                   $result=$mysqli->query($query);

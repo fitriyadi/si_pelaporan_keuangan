@@ -38,6 +38,7 @@
             <label  for="nama" class="col-2 m-2">Periode Tanggal</label>
 
             <input type="date" name="par1" class="form-control col-2" value="<?=@$par1?>" required="">
+            <span class="col-1 m-2">S/d</span>
             <input type="date" name="par2" class="form-control col-2" value="<?=@$par2?>" required="">
             <div class="col-4">
               <input type="submit" name="proses" class="btn btn-primary" style="float: right" value="Proses">
@@ -54,43 +55,48 @@
             <th colspan="4">Aktifa Lancar</th>
           </tr>
           <?php
-          $kreditall=0;
-          $queryz      = "SELECT * from tb_transaksi join tb_akun using(kode_akun) where tb_akun.kode_akun like '1-1%' and id_unit='$id_unit' and (tanggal between '$par1' and '$par2')";
+          $debetall=0;
+          $queryz      = "SELECT (sum(debet)-sum(kredit)) as debet,kode_akun,nama_akun from tb_transaksi join tb_kegiatan using(id_kegiatan) join tb_akun using(kode_akun) where tb_akun.kode_akun like '1-1%' and id_unit='$id_unit' and (tanggal between '$par1' and '$par2') group by kode_akun,nama_akun";
 
           $resultz     = $mysqli->query($queryz);
           $num_resultz = $resultz->num_rows;
           if ($num_resultz > 0) {
 
             while ($dataz = mysqli_fetch_assoc($resultz)) {
-              $kreditall+=$dataz['kredit'];
+              $debetall+=$dataz['debet'];
               ?>
               <tr>
                <td width="10%"><?php echo $dataz['kode_akun']; ?></td>
                <td width="50%"><?php echo $dataz['nama_akun']; ?></td>
-               <td width="20%"><?php echo number_format($dataz['kredit'],0); ?></td>
+               <td width="20%"><?php echo number_format($dataz['debet'],0); ?></td>
              </tr>
            <?php }} ?>
+           <tr>
+            <th colspan="2">Total</th>
+             <th><?=number_format(($debetall),0)?></th>
+           </tr>
            <tr>
             <th colspan="4">Aktifa Tetap</th>
           </tr>
           <?php
-          $queryz      = "SELECT * from tb_transaksi join tb_akun using(kode_akun) where tb_akun.kode_akun like '1-2%' and id_unit='$id_unit' and (tanggal between '$par1' and '$par2')";
+           $debetall=0;
+          $queryz      = "SELECT (sum(debet)-sum(kredit)) as debet,kode_akun,nama_akun from tb_transaksi join tb_kegiatan using(id_kegiatan) join tb_akun using(kode_akun) where tb_akun.kode_akun like '1-2%' and id_unit='$id_unit' and (tanggal between '$par1' and '$par2') group by kode_akun,nama_akun";
           $resultz     = $mysqli->query($queryz);
           $num_resultz = $resultz->num_rows;
           if ($num_resultz > 0) {
 
             while ($dataz = mysqli_fetch_assoc($resultz)) {
-              $kreditall+=$dataz['kredit'];
+              $debetall+=$dataz['debet'];
               ?>
               <tr>
                <td width="10%"><?php echo $dataz['kode_akun']; ?></td>
                <td width="50%"><?php echo $dataz['nama_akun']; ?></td>
-               <td width="20%"><?php echo number_format($dataz['kredit'],0); ?></td>
+               <td width="20%"><?php echo number_format($dataz['debet'],0); ?></td>
              </tr>
            <?php }} ?>
            <tr>
-             <th colspan="3">Total Aktifa</th>
-             <th><?=number_format(($kreditall),0)?></th>
+             <th colspan="2">Total</th>
+             <th><?=number_format(($debetall),0)?></th>
            </tr>
          </tbody>
        </table>
@@ -99,18 +105,18 @@
        <table class="table table-bordered table-hover">
         <?php
         $debetall=0;
-        $queryz      = "SELECT * from tb_transaksi join tb_akun using(kode_akun) where tb_akun.kode_akun like '2%' and id_unit='$id_unit' and (tanggal between '$par1' and '$par2')";
+        $queryz      = "SELECT (sum(debet)-sum(kredit)) as debet,kode_akun,nama_akun from tb_transaksi join tb_kegiatan using(id_kegiatan) join tb_akun using(kode_akun) where tb_akun.kode_akun like '2%' and id_unit='$id_unit' and (tanggal between '$par1' and '$par2') group by kode_akun,nama_akun";
         $resultz     = $mysqli->query($queryz);
         $num_resultz = $resultz->num_rows;
         if ($num_resultz > 0) {
 
           while ($dataz = mysqli_fetch_assoc($resultz)) {
-            $debetall+=$dataz['kredit'];
+            $debetall+=$dataz['debetall'];
             ?>
             <tr>
              <td width="10%"><?php echo $dataz['kode_akun']; ?></td>
              <td width="50%"><?php echo $dataz['nama_akun']; ?></td>
-             <td width="20%"><?php echo number_format($dataz['kredit'],0); ?></td>
+             <td width="20%"><?php echo number_format($dataz['debetall'],0); ?></td>
            </tr>
          <?php }} ?>
          <tr>
@@ -119,8 +125,6 @@
          </tr>
        </tbody>
      </table>
-
-
    <?php } ?>
 
  </div>

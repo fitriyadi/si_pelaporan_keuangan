@@ -32,11 +32,12 @@
           $par2="";
         }
         ?>
-        <form role="form" id="quickForm" action="?hal=lap_laba_rugi" method="post">
+        <form role="form" id="quickForm" action="?hal=lap_perubahan_modal" method="post">
           <div class="form-group row">
             <label  for="nama" class="col-2 m-2">Periode Tanggal</label>
 
             <input type="date" name="par1" class="form-control col-2" value="<?=@$par1?>" required="">
+            <span class="col-1 m-2">S/d</span>
             <input type="date" name="par2" class="form-control col-2" value="<?=@$par2?>" required="">
             <div class="col-4">
               <input type="submit" name="proses" class="btn btn-primary" style="float: right" value="Proses">
@@ -47,11 +48,14 @@
         <hr>
 
         <?php if(isset($_POST['par1'])){ 
-          $tahun=$_POST['par1'];
-          $modal=caridata($mysqli,"select sum(kredit) from tb_transaksi where year(tanggal)='$tahun' and id_unit='$id_unit' and kode_akun='3-111'");
-          $prive=caridata($mysqli,"select sum(kredit) from tb_transaksi where year(tanggal)='$tahun' and id_unit='$id_unit' and kode_akun='3-211'");
-          $pendapatan=caridata($mysqli,"select sum(kredit) from tb_transaksi where year(tanggal)='$tahun' and id_unit='$id_unit' and kode_akun='4-111'");
-          $bebangaji=caridata($mysqli,"select sum(kredit) from tb_transaksi where year(tanggal)='$tahun' and id_unit='$id_unit' and kode_akun='5-111'");
+          $modal=caridata($mysqli,"select sum(kredit) from tb_transaksi join tb_kegiatan using(id_kegiatan) where(tanggal between '$par1' and '$par2') and id_unit='$id_unit' and kode_akun='3-111'");
+
+          $prive=caridata($mysqli,"select sum(debet) from tb_transaksi join tb_kegiatan using(id_kegiatan) where (tanggal between '$par1' and '$par2') and id_unit='$id_unit' and kode_akun='3-211'");
+          
+          $pendapatan=caridata($mysqli,"select sum(kredit) from tb_transaksi join tb_kegiatan using(id_kegiatan) where (tanggal between '$par1' and '$par2') and id_unit='$id_unit' and kode_akun='4-111'");
+          
+          $bebangaji=caridata($mysqli,"select sum(debet) from tb_transaksi join tb_kegiatan using(id_kegiatan) where (tanggal between '$par1' and '$par2') and id_unit='$id_unit' and kode_akun like '5%'");
+          
           $labarugi=$pendapatan-$bebangaji;
           $modalakhir=$modal-$prive+$labarugi;
           ?>

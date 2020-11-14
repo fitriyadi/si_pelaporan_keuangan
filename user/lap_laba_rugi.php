@@ -37,6 +37,7 @@
             <label  for="nama" class="col-2 m-2">Periode Tanggal</label>
 
             <input type="date" name="par1" class="form-control col-2" value="<?=@$par1?>" required="">
+            <span class="col-1 m-2">S/d</span>
             <input type="date" name="par2" class="form-control col-2" value="<?=@$par2?>" required="">
             <div class="col-4">
               <input type="submit" name="proses" class="btn btn-primary" style="float: right" value="Proses">
@@ -51,7 +52,8 @@
           <table class="table table-bordered table-hover">
             <?php
             $kreditall=0;
-            $queryz      = "SELECT * from tb_transaksi join tb_akun using(kode_akun) where tb_akun.kode_akun like '4%' and id_unit='$id_unit' and (tanggal between '$par1' and '$par2')";
+            $queryz      = "SELECT * from tb_transaksi join tb_kegiatan using(id_kegiatan) join tb_akun using(kode_akun) where tb_akun.kode_akun like '4%' and id_unit='$id_unit' and (tanggal between '$par1' and '$par2')";
+
             $resultz     = $mysqli->query($queryz);
             $num_resultz = $resultz->num_rows;
             if ($num_resultz > 0) {
@@ -74,7 +76,7 @@
          <table class="table table-bordered table-hover">
           <?php
           $debetall=0;
-          $queryz      = "SELECT * from tb_transaksi join tb_akun using(kode_akun) where tb_akun.kode_akun like '5%' and id_unit='$id_unit' and (tanggal between '$par1' and '$par2')";
+          $queryz      = "SELECT * from tb_transaksi join tb_kegiatan using(id_kegiatan) join tb_akun using(kode_akun) where tb_akun.kode_akun like '5%' and id_unit='$id_unit' and (tanggal between '$par1' and '$par2')";
           $resultz     = $mysqli->query($queryz);
           $num_resultz = $resultz->num_rows;
           if ($num_resultz > 0) {
@@ -85,7 +87,7 @@
               <tr>
                <td width="10%"><?php echo $dataz['kode_akun']; ?></td>
                <td width="50%"><?php echo $dataz['nama_akun']; ?></td>
-               <td width="20%"><?php echo number_format($dataz['kredit'],0); ?></td>
+               <td width="20%"><?php echo number_format($dataz['debet'],0); ?></td>
              </tr>
            <?php }} ?>
            <tr>

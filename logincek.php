@@ -8,8 +8,10 @@ $user=$_POST['username'];
 $pass=$_POST['password']; 
 
 //Pengecekan ada data dalam login tidak
-$sqladmin="Select id_admin from tb_admin where username='$user' and password='$pass'";
-$sqluser="Select id_unit from tb_user where username='$user' and password='$pass'";
+$sqladmin="Select id_admin from tb_admin where username='$user' and password='$pass' and level_admin='Administrasi'";
+$sqladmin1="Select id_admin from tb_admin where username='$user' and password='$pass' and level_admin='Kepala'";
+$sqluser="Select id_unit from tb_user where username='$user' and password='$pass' and level_user='Transaksi'";
+$sqluser1="Select id_unit from tb_user where username='$user' and password='$pass' and level_user='Ketua'";
 
 
 $hasil=$_POST['angka1']+$_POST['angka2'];
@@ -20,13 +22,29 @@ if($_POST['hasil']==$hasil){
 
     //JIka data ditemukan
 		$_SESSION['admin']=caridata($mysqli,$sqladmin);
-	//echo "<script>alert('Anda login sebagai admin')</script>";
+		$_SESSION['admin_status']="Admin Transaksi";
+		echo "<script>alert('Anda login sebagai admin Transaksi')</script>";
+		echo "<script>window.location='admin/index.php?hal=beranda';</script>";
+
+	}else if (CekExist($mysqli,$sqladmin1)== true){
+
+    //JIka data ditemukan
+		$_SESSION['admin']=caridata($mysqli,$sqladmin1);
+		$_SESSION['admin_status']="Admin Kepala";
+		echo "<script>alert('Anda login sebagai admin Kepala')</script>";
 		echo "<script>window.location='admin/index.php?hal=beranda';</script>";
 
 	}else if (CekExist($mysqli,$sqluser)== true){
 
     //JIka data ditemukan
 		$_SESSION['id']=caridata($mysqli,$sqluser);
+		echo "<script>alert('Anda login sebagai user cabang')</script>";
+		echo "<script>window.location='user/index.php?hal=beranda';</script>";
+
+	}else if (CekExist($mysqli,$sqluser1)== true){
+
+    //JIka data ditemukan
+		$_SESSION['id']=caridata($mysqli,$sqluser1);
 		echo "<script>alert('Anda login sebagai user cabang')</script>";
 		echo "<script>window.location='user/index.php?hal=beranda';</script>";
 

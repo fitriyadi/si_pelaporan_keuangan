@@ -83,7 +83,7 @@
             <tbody>
               <?php
               $saldo=0;
-              $query      = "SELECT * from tb_transaksi $where";
+              $query      = "SELECT * from tb_transaksi join tb_kegiatan using(id_kegiatan) $where";
               $result     = $mysqli->query($query);
               $num_result = $result->num_rows;
               if ($num_result > 0) {

@@ -32,11 +32,12 @@
           $par2="";
         }
         ?>
-        <form role="form" id="quickForm" action="?hal=lap_laba_rugi" method="post">
+        <form role="form" id="quickForm" action="?hal=lap_arus_kas" method="post">
           <div class="form-group row">
             <label  for="nama" class="col-2 m-2">Periode Tanggal</label>
 
             <input type="date" name="par1" class="form-control col-2" value="<?=@$par1?>" required="">
+            <span class="col-1 m-2">S/d</span>
             <input type="date" name="par2" class="form-control col-2" value="<?=@$par2?>" required="">
             <div class="col-4">
               <input type="submit" name="proses" class="btn btn-primary" style="float: right" value="Proses">
@@ -48,7 +49,7 @@
           <hr>
 
           <?php if(isset($_POST['par1'])){
-            $query      = "SELECT * from tb_index";
+            $query      = "SELECT * from tb_index where id_index !=0 order by keterangan asc";
             $result     = $mysqli->query($query);
             $num_result = $result->num_rows;
             if ($num_result > 0) {
@@ -68,7 +69,7 @@
                     <?php
                     $debetall=0;
                     $kreditall=0;
-                    $queryz      = "SELECT * from tb_transaksi where id_index ='$id_index' and id_unit='$id_unit' and year(tanggal)='$par1'";
+                    $queryz      = "SELECT * from tb_transaksi join tb_kegiatan using(id_kegiatan) where id_index ='$id_index' and id_unit='$id_unit' and (tanggal between '$par1' and '$par2')";
                     $resultz     = $mysqli->query($queryz);
                     $num_resultz = $result->num_rows;
                     if ($num_result > 0) {
@@ -83,7 +84,7 @@
                         </tr>
                       <?php }} ?>
                       <th colspan="3"></th>
-                      <th><?=number_format(($kreditall-$debetall),0)?></th>
+                      <th><?=number_format(($debetall-$kreditall),0)?></th>
                     </tbody>
                   </table>
                 <?php } } } ?>

@@ -31,25 +31,27 @@
             $par1=$_POST['par1'];
             $par2=$_POST['par2'];
             $id_akun=$_POST['id_akun'];
+            $id_kegiatan=$_POST['id_kegiatan'];
 
             if($_POST['id_akun']!='semua')
-              $where="where tb_kegiatan.id_unit='$id_unit' and (tanggal between '$par1' and '$par2') and kode_akun='$id_akun'";
+              $where="where tb_kegiatan.id_unit='$id_unit' and (tanggal between '$par1' and '$par2') and kode_akun='$id_akun' and id_kegiatan='$id_kegiatan'";
             else
-             $where="where tb_kegiatan.id_unit='$id_unit' and (tanggal between '$par1' and '$par2')";
+             $where="where tb_kegiatan.id_unit='$id_unit' and (tanggal between '$par1' and '$par2') and id_kegiatan='$id_kegiatan'";
 
          }else{
           $par1="";
           $par2="";
           $id_akun="";
+          $id_kegiatan="";
 
 
           $where="where id_unit='$id_unit'";
         }
         ?>
-        <form role="form" id="quickForm" action="?hal=transaksi_data&id=1" method="post">
+        <form role="form" id="quickForm" action="?hal=transaksi_data" method="post">
           <div class="form-group row">
-            <label for="nama" class="col-1 m-2">Akun</label>
-            <select class="form-control select2 col-3" name="id_akun">
+            <label for="nama" class="col-2 m-2">Akun</label>
+            <select class="form-control select2 col-sm-3" name="id_akun">
               <option value="semua">Semua</option>
               <?php
               $query="SELECT * from tb_akun";
@@ -63,11 +65,32 @@
               }
               ?>
             </select>
+
+            <label for="nama" class="col-2 m-2">Unit Usaha</label>
+            <select class="form-control select2 col-3" name="id_kegiatan">
+              <?php
+              $query="SELECT * from tb_kegiatan where id_unit='$id_unit'";
+              $result=$mysqli->query($query);
+              $num_result=$result->num_rows;
+              if ($num_result > 0 ) { 
+                $no=0;
+                while ($data=mysqli_fetch_assoc($result)) { ?>
+                  <option value="<?=$data['id_kegiatan']?>" <?=isselect(@$id_kegiatan,$data['id_kegiatan'])?>><?=$data['nama_kegiatan']?></option>
+                <?php }
+              }
+              ?>
+            </select>
+          </div>
+
+          <div class="form-group row">
+
             <label  for="nama" class="col-2 m-2">Periode Tanggal</label>
-            <input type="date" name="par1" class="form-control col-2" value="<?=@$par1?>" required="">
-            <input type="date" name="par2" class="form-control col-2" value="<?=@$par2?>" required="">
-            <div class="col-1">
-              <input type="submit" name="proses" class="btn btn-primary" style="float: right" value="Proses">
+            <input type="date" name="par1" class="form-control col-2" max="<?=date('Y-m-d');?>" value="<?=@$par1?>" required="">
+            <span class="col-1 m-2" style="align:center;"> S/d </span>
+            <input type="date" name="par2" class="form-control col-2" max="<?=date('Y-m-d');?>" value="<?=@$par2?>" required="">
+            <div class="col-2">
+              <input type="submit" name="proses" class="btn btn-primary" style="float: left" value="Proses">
+              <a href="?hal=transaksi_data"  style="float: right" class="btn btn-success">Reset</a>
             </div>
           </div>
         </form>
