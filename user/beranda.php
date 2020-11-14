@@ -4,11 +4,12 @@ $bulan=date('m');
 $tahun=date('Y');
 $id=$_SESSION['id'];
 
-$transaksibulanini=caridata($mysqli,"SELECT count(*) from tb_transaksi where id_unit='$id' and month(tanggal)='$bulan' and year(tanggal)='$tahun'");
-$pendapatan=caridata($mysqli,"SELECT sum(kredit) from tb_transaksi join tb_akun using(kode_akun) where tb_akun.kode_akun like '4%' and id_unit='$id' and month(tanggal)='$bulan' and year(tanggal)='$tahun'");
+$transaksibulanini=caridata($mysqli,"SELECT count(*) from tb_transaksi  join tb_kegiatan using(id_kegiatan) where id_unit='$id' and month(tanggal)='$bulan' and year(tanggal)='$tahun'");
+
+$pendapatan=caridata($mysqli,"SELECT sum(kredit) from tb_transaksi join tb_akun using(kode_akun) join tb_kegiatan using(id_kegiatan) where tb_akun.kode_akun like '4%' and id_unit='$id' and month(tanggal)='$bulan' and year(tanggal)='$tahun'");
 
 
-$pengeluaran=caridata($mysqli,"SELECT sum(kredit) from tb_transaksi join tb_akun using(kode_akun) where tb_akun.kode_akun like '5%' and id_unit='$id' and month(tanggal)='$bulan' and year(tanggal)='$tahun'");
+$pengeluaran=caridata($mysqli,"SELECT sum(kredit) from tb_transaksi join tb_akun using(kode_akun) join tb_kegiatan using(id_kegiatan) where tb_akun.kode_akun like '5%' and id_unit='$id' and month(tanggal)='$bulan' and year(tanggal)='$tahun'");
 
 $laba=$pendapatan-$pengeluaran;
 ?>

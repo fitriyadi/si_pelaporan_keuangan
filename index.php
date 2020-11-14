@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -35,6 +38,7 @@
             </div>
           </div>
         </div>
+
         <div class="input-group mb-3">
           <input type="password" class="form-control" name="password" placeholder="Password">
           <div class="input-group-append">
@@ -43,6 +47,38 @@
             </div>
           </div>
         </div>
+
+        <?php
+        $min_number = 1;
+        $max_number = 15;
+
+    // generating random numbers
+        $angka1 = mt_rand($min_number, $max_number);
+        $angka2 = mt_rand($min_number, $max_number);
+        ?>
+
+        <input type="hidden" name="angka1" value="<?=$angka1?>">
+        <input type="hidden" name="angka2" value="<?=$angka2?>"> 
+
+        <div class="input-group mb-3">
+          <label class="form-control"><?=$angka1." + ".$angka2 ?> =  ? </label>
+          <input type="number" class="form-control" name="hasil" placeholder="Capthca">
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fas fa-calculator"></span>
+            </div>
+          </div>
+        </div>
+
+        <?php if(isset($_SESSION['salah'])){ ?>
+          <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            Captcha salah, Silakan jawab lagi.
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+        <?php } ?>
+
         <div class="row">
           <div class="col-8">
           </div>

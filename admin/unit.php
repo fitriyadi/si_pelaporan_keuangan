@@ -34,7 +34,7 @@
                 <th>No</th>
                 <th>Nama Unit</th>
                 <th>Jenis Usaha</th>
-                <th>User</th>
+                <th>Kegiatan</th>
                 <th>Aksi</th>
               </tr>
             </thead>
@@ -79,3 +79,8 @@
       </section>
       <!-- /.content -->
 
+<?php
+
+
+
+?>

@@ -36,6 +36,7 @@
                 <th>Nama Lengkap</th>
                 <th>Username</th>
                 <th>Password</th>
+                <th>Level</th>
                 <th>Aksi</th>
               </tr>
             </thead>
@@ -55,6 +56,7 @@
                     <td><?php echo $nama_lengkap_admin; ?></td>
                     <td><?php echo $username; ?></td>
                     <td><?php echo $password; ?></td>
+                    <td><?php echo $level_admin; ?></td>
                   </td>
 
                   <td width="15%">

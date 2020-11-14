@@ -37,6 +37,7 @@
                 <th>Nama Lengkap</th>
                 <th>Username</th>
                 <th>Password</th>
+                <th>Level User</th>
                 <th>Aksi</th>
               </tr>
             </thead>
@@ -58,6 +59,7 @@
                     <td><?php echo $nama_lengkap_user; ?></td>
                     <td><?php echo $username; ?></td>
                     <td><?php echo $password; ?></td>
+                    <td><?php echo $level_user; ?></td>
                   </td>
 
                   <td width="15%">

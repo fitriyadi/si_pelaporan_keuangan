@@ -23,6 +23,7 @@
         <!-- /.card-header -->
         <div class="card-body">
           <?php
+          unset($_SESSION['transaksi']);
           $id_unit=$_SESSION['id'];
           if(isset($_POST['par1'])){
 
@@ -32,9 +33,9 @@
             $id_akun=$_POST['id_akun'];
 
             if($_POST['id_akun']!='semua')
-              $where="where id_unit='$id_unit' and (tanggal between '$par1' and '$par2') and kode_akun='$id_akun'";
+              $where="where tb_kegiatan.id_unit='$id_unit' and (tanggal between '$par1' and '$par2') and kode_akun='$id_akun'";
             else
-             $where="where id_unit='$id_unit' and (tanggal between '$par1' and '$par2')";
+             $where="where tb_kegiatan.id_unit='$id_unit' and (tanggal between '$par1' and '$par2')";
 
          }else{
           $par1="";
@@ -78,16 +79,18 @@
             <tr>
               <th>No Transaksi</th>
               <th>Tanggal</th>
-              <th>Keterangan Transaksi</th>
+              <th>Usaha</th>
+              <th>Keterangan</th>
               <th>Debet</th>
               <th>Kredit</th>
               <th>Saldo</th>
+              <th>#</th>
             </tr>
           </thead>
           <tbody>
             <?php
             $saldo=0;
-            $query      = "SELECT * from tb_transaksi $where";
+            $query      = "SELECT * from tb_transaksi join tb_kegiatan using(id_kegiatan) $where";
             $result     = $mysqli->query($query);
             $num_result = $result->num_rows;
             if ($num_result > 0) {
@@ -100,21 +103,31 @@
                 <tr>
                   <td><?php echo $id_transaksi; ?></td>
                   <td><?php echo tgl_indo($tanggal); ?></td>
+                  <td><?php echo $nama_kegiatan; ?></td>
                   <td><?php echo $keterangan; ?></td>
                   <td><?php echo number_format($debet,0); ?></td>
                   <td><?php echo number_format($kredit,0); ?></td>
                   <th><?php echo number_format($saldo,0); ?></th>
-                </tr>
-              <?php }}?>
-            </table>
+                  <td width="15%">
+
+                    <a href="?hal=transaksi_edit&id=<?php echo $id_jurnal; ?>"
+                      class="btn btn-icon btn-primary" title="Edit Data"><i class="fa fa-edit"></i> </a>
+
+                      <a class="btn btn-danger" title="Hapus Data" href="transaksi_proses.php?hapusdb=<?php echo $id_jurnal; ?>"
+                        onclick="return confirm('Apakah anda yakin akan menghapus data ini?')"> <i class="fa fa-trash"></i></a>
+
+                      </td>
+                    </tr>
+                  <?php }}?>
+                </table>
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
           </div>
-          <!-- /.card-body -->
+          <!-- /.col -->
         </div>
-        <!-- /.card -->
-      </div>
-      <!-- /.col -->
-    </div>
-    <!-- /.row -->
-  </section>
-  <!-- /.content -->
+        <!-- /.row -->
+      </section>
+      <!-- /.content -->
 

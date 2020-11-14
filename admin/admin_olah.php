@@ -45,6 +45,14 @@ if (isset($_GET['id'])){
                 <input type="text" name="password" class="form-control" value="<?=@$password?>" placeholder="Inputkan Password" required="">
               </div>
 
+              <div class="form-group">
+                <label for="nama">Level Admin</label>
+                <select class="form-control select2" name="level_admin">
+                  <option value="Administrasi" <?=isselect("Administrasi",@$level_admin);?> >Administrasi</option>
+                  <option value="Kepala" <?=isselect("Kepala",@$level_admin)?>>Kepala</option>
+                </select>
+              </div>
+
 
             </div>
 

@@ -25,32 +25,25 @@
           <?php
           $id_unit=$_SESSION['id'];
           if(isset($_POST['par1'])){
-            $par1=$_POST['par1'];
-          }else{
-            $par1="";
-            $where="where id_unit='$id_unit'";
-          }
-          ?>
-          <form role="form" id="quickForm" action="?hal=lap_arus_kas" method="post">
-            <div class="form-group row">
-              <label  for="nama" class="col-2 m-2">Periode Tahun</label>
+           $par1=$_POST['par1'];
+           $par2=$_POST['par2'];
+         }else{
+          $par1="";
+          $par2="";
+        }
+        ?>
+        <form role="form" id="quickForm" action="?hal=lap_laba_rugi" method="post">
+          <div class="form-group row">
+            <label  for="nama" class="col-2 m-2">Periode Tanggal</label>
 
-              <select class="form-control select2 col-2" name="par1">
-                <?php
-                $tahunawal=2020;
-                $tahunnow=date('Y');
-                for ($i=$tahunawal;$i<=$tahunnow; $i++) { 
-                  ?>
-                  <option value="<?=$tahunawal?>"><?=$tahunnow?></option>
-                  <?php
-                }
-                ?>
-              </select>
-              <div class="col-4">
-                <input type="submit" name="proses" class="btn btn-primary" style="float: right" value="Proses">
-              </div>
+            <input type="date" name="par1" class="form-control col-2" value="<?=@$par1?>" required="">
+            <input type="date" name="par2" class="form-control col-2" value="<?=@$par2?>" required="">
+            <div class="col-4">
+              <input type="submit" name="proses" class="btn btn-primary" style="float: right" value="Proses">
             </div>
-          </form>
+          </div>
+        </form>
+          
 
           <hr>
 

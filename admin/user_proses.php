@@ -8,15 +8,16 @@ if(isset($_POST['tambah']))
 {	
 //Proses penambahan index
 	$stmt = $mysqli->prepare("INSERT INTO tb_user 
-		(nama_user,nama_lengkap_user,username,password,id_unit) 
-		VALUES (?,?,?,?,?)");
+		(nama_user,nama_lengkap_user,username,password,id_unit,level_user) 
+		VALUES (?,?,?,?,?,?)");
 
-	$stmt->bind_param("sssss", 
+	$stmt->bind_param("ssssss", 
 		$_POST['nama_user'],
 		$_POST['nama_lengkap_user'],
 		$_POST['username'],
 		$_POST['password'],
-		$_POST['id_unit']);	
+		$_POST['id_unit'],
+		$_POST['level_user']);	
 
 	if ($stmt->execute()) { 
 		echo "<script>alert('Data user Berhasil Disimpan')</script>";
@@ -34,14 +35,16 @@ if(isset($_POST['tambah']))
 		nama_lengkap_user=?,
 		username=?,
 		password=?,
-		id_unit=?
+		id_unit=?,
+		level_user=?
 		where id_user=?");
-	$stmt->bind_param("ssssss",
+	$stmt->bind_param("sssssss",
 		$_POST['nama_user'],
 		$_POST['nama_lengkap_user'],
 		$_POST['username'],
 		$_POST['password'],
 		$_POST['id_unit'],
+		$_POST['level_user'],
 		$_POST['id_user']);	
 
 	if ($stmt->execute()) { 

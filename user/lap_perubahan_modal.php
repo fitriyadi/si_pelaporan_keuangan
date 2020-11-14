@@ -25,74 +25,66 @@
           <?php
           $id_unit=$_SESSION['id'];
           if(isset($_POST['par1'])){
+           $par1=$_POST['par1'];
+           $par2=$_POST['par2'];
+         }else{
+          $par1="";
+          $par2="";
+        }
+        ?>
+        <form role="form" id="quickForm" action="?hal=lap_laba_rugi" method="post">
+          <div class="form-group row">
+            <label  for="nama" class="col-2 m-2">Periode Tanggal</label>
 
-          }else{
-            $par1="";
-            $where="where id_unit='$id_unit'";
-          }
-          ?>
-          <form role="form" id="quickForm" action="?hal=lap_perubahan_modal" method="post">
-            <div class="form-group row">
-              <label  for="nama" class="col-2 m-2">Periode Tahun</label>
-
-              <select class="form-control select2 col-2" name="par1">
-                <?php
-                $tahunawal=2020;
-                $tahunnow=date('Y');
-                for ($i=$tahunawal;$i<=$tahunnow; $i++) { 
-                  ?>
-                  <option value="<?=$tahunawal?>"><?=$tahunnow?></option>
-                  <?php
-                }
-                ?>
-              </select>
-              <div class="col-4">
-                <input type="submit" name="proses" class="btn btn-primary" style="float: right" value="Proses">
-              </div>
+            <input type="date" name="par1" class="form-control col-2" value="<?=@$par1?>" required="">
+            <input type="date" name="par2" class="form-control col-2" value="<?=@$par2?>" required="">
+            <div class="col-4">
+              <input type="submit" name="proses" class="btn btn-primary" style="float: right" value="Proses">
             </div>
-          </form>
+          </div>
+        </form>
 
-          <hr>
+        <hr>
 
-          <?php if(isset($_POST['par1'])){ 
-            $tahun=$_POST['par1'];
-            $modal=caridata($mysqli,"select sum(kredit) from tb_transaksi where year(tanggal)='$tahun' and id_unit='$id_unit' and kode_akun='3-111'");
-            $prive=caridata($mysqli,"select sum(kredit) from tb_transaksi where year(tanggal)='$tahun' and id_unit='$id_unit' and kode_akun='3-211'");
-            $pendapatan=caridata($mysqli,"select sum(kredit) from tb_transaksi where year(tanggal)='$tahun' and id_unit='$id_unit' and kode_akun='4-111'");
-            $bebangaji=caridata($mysqli,"select sum(kredit) from tb_transaksi where year(tanggal)='$tahun' and id_unit='$id_unit' and kode_akun='5-111'");
-            $labarugi=$pendapatan-$bebangaji;
-            $modalakhir=$modal-$prive+$labarugi;
-            ?>
-            <table id="" class="table table-bordered table-hover">
-              <tbody>
-                <tr>
-                  <th width="50%"> Modal di setor </th>
-                  <th><?=number_format($modal,0)?></th>
-                </tr>
-                <tr>
-                  <th width="50%"> Prive </th>
-                   <th><?=number_format($prive,0)?></th>
-                </tr>
-                <tr>
-                  <th width="50%"> Laba / Rugi Bersih </th>
-                   <th><?=number_format($labarugi,0)?></th>
-                </tr>
-                <tr>
-                  <th width="50%"> Modal Akhir </th>
-                  <th><?=number_format($modalakhir,0)?></th>
-                </tr>
-              </tbody>
-            </table>
-          <?php } ?>
+        <?php if(isset($_POST['par1'])){ 
+          $tahun=$_POST['par1'];
+          $modal=caridata($mysqli,"select sum(kredit) from tb_transaksi where year(tanggal)='$tahun' and id_unit='$id_unit' and kode_akun='3-111'");
+          $prive=caridata($mysqli,"select sum(kredit) from tb_transaksi where year(tanggal)='$tahun' and id_unit='$id_unit' and kode_akun='3-211'");
+          $pendapatan=caridata($mysqli,"select sum(kredit) from tb_transaksi where year(tanggal)='$tahun' and id_unit='$id_unit' and kode_akun='4-111'");
+          $bebangaji=caridata($mysqli,"select sum(kredit) from tb_transaksi where year(tanggal)='$tahun' and id_unit='$id_unit' and kode_akun='5-111'");
+          $labarugi=$pendapatan-$bebangaji;
+          $modalakhir=$modal-$prive+$labarugi;
+          ?>
+          <table id="" class="table table-bordered table-hover">
+            <tbody>
+              <tr>
+                <th width="50%"> Modal di setor </th>
+                <th><?=number_format($modal,0)?></th>
+              </tr>
+              <tr>
+                <th width="50%"> Prive </th>
+                <th><?=number_format($prive,0)?></th>
+              </tr>
+              <tr>
+                <th width="50%"> Laba / Rugi Bersih </th>
+                <th><?=number_format($labarugi,0)?></th>
+              </tr>
+              <tr>
+                <th width="50%"> Modal Akhir </th>
+                <th><?=number_format($modalakhir,0)?></th>
+              </tr>
+            </tbody>
+          </table>
+        <?php } ?>
 
-        </div>
-        <!-- /.card-body -->
       </div>
-      <!-- /.card -->
+      <!-- /.card-body -->
     </div>
-    <!-- /.col -->
+    <!-- /.card -->
   </div>
-  <!-- /.row -->
+  <!-- /.col -->
+</div>
+<!-- /.row -->
 </section>
 <!-- /.content -->
 

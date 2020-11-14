@@ -26,10 +26,18 @@
 				<p>Data index</p>
 			</a>
 		</li>
+
 		<li class="nav-item">
 			<a href="?hal=unit" class="nav-link"> <!-- active -->
 				<i class="fa fa-bars nav-icon"></i>
 				<p>Data Unit</p>
+			</a>
+		</li>
+
+		<li class="nav-item">
+			<a href="?hal=kegiatan" class="nav-link"> <!-- active -->
+				<i class="fa fa-plus nav-icon"></i>
+				<p>Data Usaha Unit</p>
 			</a>
 		</li>
 
