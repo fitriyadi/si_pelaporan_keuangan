@@ -7,6 +7,7 @@ require_once '../setting/fungsi.php';
 if(isset($_POST['tambah']))
 {	
 //Proses penambahan akun
+
 	$stmt = $mysqli->prepare("INSERT INTO tb_akun 
 		(kode_akun,nama_akun) 
 		VALUES (?,?)");
@@ -22,6 +23,7 @@ if(isset($_POST['tambah']))
 		echo "<script>alert('Data akun Gagal Disimpan, Kode Akun sudah ada')</script>";
 		echo "<script>window.location='javascript:history.go(-1)';</script>";
 	}
+	
 
 }else if(isset($_POST['ubah'])){
 
