@@ -33,8 +33,6 @@
               <tr>
                 <th>No</th>
                 <th>Nama Unit</th>
-                <th>Jenis Usaha</th>
-                <th>Kegiatan</th>
                 <th>Aksi</th>
               </tr>
             </thead>
@@ -52,8 +50,6 @@
                   <tr>
                     <td width="5%"><?php echo $no+=1; ?></td>
                     <td><?=$nama_unit; ?></td>
-                    <td><?=$jenis_usaha; ?></td>
-                    <td><?=$jenis_usaha; ?></td>
                   </td>
 
                   <td width="15%">

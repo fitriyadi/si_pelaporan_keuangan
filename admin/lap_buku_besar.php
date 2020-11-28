@@ -31,7 +31,10 @@
             $par2=$_POST['par2'];
             $id_akun=$_POST['id_akun'];
 
-            $where="where id_unit='$id_unit' and (tanggal between '$par1' and '$par2') and kode_akun='$id_akun'";
+            if($_POST['id_akun']=='Semua')
+              $where="where id_unit='$id_unit' and (tanggal between '$par1' and '$par2')";
+            else
+              $where="where id_unit='$id_unit' and (tanggal between '$par1' and '$par2') and kode_akun='$id_akun'";
 
           }else{
             $par1="";
@@ -46,6 +49,7 @@
             <div class="form-group row">
               <label for="nama" class="col-1 m-2">Akun</label>
               <select class="form-control select2 col-3" name="id_akun">
+                <option value="Semua">Semua Akun</option>
                 <?php
                 $query="SELECT * from tb_akun";
                 $result=$mysqli->query($query);

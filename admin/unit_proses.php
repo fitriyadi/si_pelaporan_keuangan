@@ -8,12 +8,11 @@ if(isset($_POST['tambah']))
 {	
 //Proses penambahan index
 	$stmt = $mysqli->prepare("INSERT INTO tb_unit 
-		(nama_unit,jenis_usaha) 
-		VALUES (?,?)");
+		(nama_unit) 
+		VALUES (?)");
 
-	$stmt->bind_param("ss", 
-		$_POST['nama_unit'],
-		$_POST['jenis_usaha']);	
+	$stmt->bind_param("s", 
+		$_POST['nama_unit']);	
 
 	if ($stmt->execute()) { 
 		echo "<script>alert('Data unit Berhasil Disimpan')</script>";
@@ -27,12 +26,10 @@ if(isset($_POST['tambah']))
 
 //Proses ubah data
 	$stmt = $mysqli->prepare("UPDATE tb_unit  SET 
-		nama_unit=?,
-		jenis_usaha=?
+		nama_unit=?
 		where id_unit=?");
-	$stmt->bind_param("sss",
+	$stmt->bind_param("ss",
 		$_POST['nama_unit'],
-		$_POST['jenis_usaha'],
 		$_POST['kode']);	
 
 	if ($stmt->execute()) { 

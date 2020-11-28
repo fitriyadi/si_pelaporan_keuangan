@@ -111,12 +111,12 @@
         if ($num_resultz > 0) {
 
           while ($dataz = mysqli_fetch_assoc($resultz)) {
-            $debetall+=$dataz['debetall'];
+            $debetall+=$dataz['debet'];
             ?>
             <tr>
              <td width="10%"><?php echo $dataz['kode_akun']; ?></td>
              <td width="50%"><?php echo $dataz['nama_akun']; ?></td>
-             <td width="20%"><?php echo number_format($dataz['debetall'],0); ?></td>
+             <td width="20%"><?php echo number_format($dataz['debet'],0); ?></td>
            </tr>
          <?php }} ?>
          <tr>

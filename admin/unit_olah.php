@@ -2,6 +2,8 @@
 if (isset($_GET['id'])){
   $kode=$_GET['id'];
   extract(ArrayData($mysqli,"tb_unit","id_unit='$kode'"));
+}else{
+  $nama_unit="";
 }
 ?>
 
@@ -28,12 +30,6 @@ if (isset($_GET['id'])){
                 <label for="nama">Nama Unit</label>
                 <input type="text" name="nama_unit" class="form-control" value="<?=@$nama_unit?>" placeholder="Inputkan Nama Unit" required="">
               </div>
-
-              <div class="form-group">
-                <label for="nama">Jenis Kegiatan</label>
-                <input type="text" name="jenis_usaha" class="form-control" value="<?=@$jenis_usaha?>" placeholder="Inputkan Jenis Usaha" required="">
-              </div>
-
 
             </div>
 

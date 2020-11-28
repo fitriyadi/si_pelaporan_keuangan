@@ -30,7 +30,10 @@
             @$par2=$_POST['par2'];
             @$id_kegiatan=$_POST['id_kegiatan'];
 
-            $where="where id_kegiatan='$id_kegiatan' and (tanggal between '$par1' and '$par2')";
+            if($_POST['id_kegiatan']=='Semua')
+              $where="where id_unit='$id_unit' and (tanggal between '$par1' and '$par2')";
+            else
+              $where="where id_kegiatan='$id_kegiatan' and (tanggal between '$par1' and '$par2')";
 
           }else{
             $par1="";
@@ -45,6 +48,7 @@
 
               <label for="nama" class="col-1 m-2">Usaha</label>
               <select class="form-control select2 col-3" name="id_kegiatan">
+                <option value="Semua">Semua Usaha</option>
                 <?php
                 $query="SELECT * from tb_kegiatan where id_unit='$id_unit'";
                 $result=$mysqli->query($query);
