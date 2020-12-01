@@ -44,59 +44,72 @@
             </div>
           </div>
         </form>
-          
 
-          <hr>
 
-          <?php if(isset($_POST['par1'])){
-            $query      = "SELECT * from tb_index where id_index !=0 order by keterangan asc";
-            $result     = $mysqli->query($query);
-            $num_result = $result->num_rows;
-            if ($num_result > 0) {
-              while ($data = mysqli_fetch_assoc($result)) {
-                extract($data);
+        <hr>
+
+        <?php if(isset($_POST['par1'])){
+          $query      = "SELECT * from tb_index where id_index !=0 order by keterangan asc";
+          $result     = $mysqli->query($query);
+          $num_result = $result->num_rows;
+          if ($num_result > 0) {
+            while ($data = mysqli_fetch_assoc($result)) {
+              extract($data);
+              ?>
+              <table id="" class="table table-bordered table-hover">
+                <thead>
+                  <tr>
+                    <th width="40%"><?=$keterangan?></th>
+                    <th width="20%">Debet</th>
+                    <th width="20%">Kredit</th>
+                    <th width="20%">#</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <?php
+                  $debetall=0;
+                  $kreditall=0;
+                  $queryz      = "SELECT * from tb_transaksi join tb_kegiatan using(id_kegiatan) where id_index ='$id_index' and id_unit='$id_unit' and (tanggal between '$par1' and '$par2')";
+
+                  $resultz     = $mysqli->query($queryz);
+                  $num_resultz = $result->num_rows;
+                  if ($num_result > 0) {
+                    while ($dataz = mysqli_fetch_assoc($resultz)) {
+                      $debetall+=$dataz['debet'];
+                      $kreditall+=$dataz['kredit'];
+                      ?>
+                      <tr>
+                        <td><?php echo $dataz['keterangan']; ?></td>
+                        <td><?php echo number_format($dataz['debet'],0); ?></td>
+                        <td><?php echo number_format($dataz['kredit'],0); ?></td>
+                      </tr>
+                    <?php }} ?>
+                    <th colspan="3"></th>
+                    <th><?=number_format(($debetall-$kreditall),0)?></th>
+                  </tbody>
+                </table>
+              <?php } } } ?>
+
+              <?php if(isset($_POST['par1'])){
+                $_SESSION['laporan']['judul']="Laporan Arus Kas";
+                $_SESSION['laporan']['periode'] =tgl_indo($_POST['par1'])." S/d ".tgl_indo($_POST['par2']);
+                $_SESSION['laporan']['sql']=$query;
+                $_SESSION['laporan']['sql1']=" and id_unit='$id_unit' and (tanggal between '".$_POST['par1']."' and '".$_POST['par2']."')";
+                $_SESSION['laporan']['unit']=caridata($mysqli,"select nama_unit from tb_unit where id_unit='".$_GET['id']."'");
+
                 ?>
-                <table id="" class="table table-bordered table-hover">
-                  <thead>
-                    <tr>
-                      <th width="40%"><?=$keterangan?></th>
-                      <th width="20%">Debet</th>
-                      <th width="20%">Kredit</th>
-                      <th width="20%">#</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <?php
-                    $debetall=0;
-                    $kreditall=0;
-                    $queryz      = "SELECT * from tb_transaksi join tb_kegiatan using(id_kegiatan) where id_index ='$id_index' and id_unit='$id_unit' and (tanggal between '$par1' and '$par2')";
-                    $resultz     = $mysqli->query($queryz);
-                    $num_resultz = $result->num_rows;
-                    if ($num_result > 0) {
-                      while ($dataz = mysqli_fetch_assoc($resultz)) {
-                        $debetall+=$dataz['debet'];
-                        $kreditall+=$dataz['kredit'];
-                        ?>
-                        <tr>
-                          <td><?php echo $dataz['keterangan']; ?></td>
-                          <td><?php echo number_format($dataz['debet'],0); ?></td>
-                          <td><?php echo number_format($dataz['kredit'],0); ?></td>
-                        </tr>
-                      <?php }} ?>
-                      <th colspan="3"></th>
-                      <th><?=number_format(($debetall-$kreditall),0)?></th>
-                    </tbody>
-                  </table>
-                <?php } } } ?>
+                <a href="lap_arus_kas_pdf.php" target="_blank" style="float: right;margin-top: 10px;" class="btn btn-success"><i class="fa fa-print"></i> Cetak PDF</a>
 
-              </div>
-              <!-- /.card-body -->
+              <?php } ?>
+
             </div>
-            <!-- /.card -->
+            <!-- /.card-body -->
           </div>
-          <!-- /.col -->
+          <!-- /.card -->
         </div>
-        <!-- /.row -->
-      </section>
-      <!-- /.content -->
+        <!-- /.col -->
+      </div>
+      <!-- /.row -->
+    </section>
+    <!-- /.content -->
 

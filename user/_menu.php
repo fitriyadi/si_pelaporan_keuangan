@@ -5,32 +5,34 @@
 	</a>
 </li>
 
-<li class="nav-item has-treeview"> <!--menu-open-->
-	<a href="#" class="nav-link"> <!-- active -->
-		<i class="nav-icon fas fa-calculator"></i>
-		<p>
-			Transaksi
-			<i class="fas fa-angle-left right"></i>
-		</p>
-	</a>
+<?php if($_SESSION['user_status']=='User Transaksi'){ ?>
+	<li class="nav-item has-treeview"> <!--menu-open-->
+		<a href="#" class="nav-link"> <!-- active -->
+			<i class="nav-icon fas fa-calculator"></i>
+			<p>
+				Transaksi
+				<i class="fas fa-angle-left right"></i>
+			</p>
+		</a>
 
-	<ul class="nav nav-treeview">
-		<?php if($_SESSION['user_status']=='User Transaksi'){ ?>
+		<ul class="nav nav-treeview">
 			<li class="nav-item">
 				<a href="?hal=transaksi_input" class="nav-link">
 					<i class="fa fa-plus nav-icon"></i>
 					<p>Input Transaksi</p>
 				</a>
 			</li>
-		<?php } ?>
-		<li class="nav-item">
-			<a href="?hal=transaksi_data&id=1" class="nav-link"> <!-- active -->
-				<i class="fa fa-flag nav-icon"></i>
-				<p>Kegiatan Transaksi</p>
-			</a>
-		</li>
-	</ul>
-</li>
+
+			<li class="nav-item">
+				<a href="?hal=transaksi_data&id=1" class="nav-link"> <!-- active -->
+					<i class="fa fa-flag nav-icon"></i>
+					<p>Kegiatan Transaksi</p>
+				</a>
+			</li>
+		</ul>
+	</li>
+
+<?php } ?>
 
 <li class="nav-item has-treeview"> <!--menu-open-->
 	<a href="#" class="nav-link"> <!-- active -->

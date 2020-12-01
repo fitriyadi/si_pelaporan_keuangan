@@ -43,7 +43,7 @@
             $where="where id_unit='$id_unit'";
           }
           ?>
-          <form role="form" id="quickForm" action="?hal=lap_jurnal_umum" method="post">
+          <form role="form" id="quickForm" action="?hal=lap_jurnal_umum&id=<?=$id_unit?>" method="post">
             <div class="form-group row">
 
               <label for="nama" class="col-1 m-2">Usaha</label>
@@ -114,6 +114,20 @@
                   </tr>
                 <?php }}?>
               </table>
+              <?php if(isset($_POST['par1'])){
+                $_SESSION['laporan']['judul']="Laporan Jurnal Umum";
+                $_SESSION['laporan']['periode'] =tgl_indo($_POST['par1'])." S/d ".tgl_indo($_POST['par2']);
+                $_SESSION['laporan']['sql']=$query;
+                $_SESSION['laporan']['unit']=caridata($mysqli,"select nama_unit from tb_unit where id_unit='".$_SESSION['id']."'");
+                if($_POST['id_kegiatan']=='Semua')
+                  $_SESSION['laporan']['usaha']='Semua Unit';
+                else
+                  $_SESSION['laporan']['usaha']=caridata($mysqli,"select nama_kegiatan from tb_kegiatan where id_kegiatan='".$_POST['id_kegiatan']."'");
+
+                  ?>
+                <a href="lap_jurnal_umum_pdf.php" target="_blank" style="float: right;margin-top: 10px;" class="btn btn-success"><i class="fa fa-print"></i> Cetak PDF</a>
+
+              <?php } ?>
             </div>
             <!-- /.card-body -->
           </div>

@@ -11,8 +11,16 @@ if(isset($_POST['tambah']))
 	$uppercase = preg_match('@[A-Z]@', $password);
 	$lowercase = preg_match('@[a-z]@', $password);
 	$number    = preg_match('@[0-9]@', $password);
-	if(!$uppercase || !$lowercase || !$number || strlen($password) < 8) {
-		echo "<script>alert('Password minimal 8 Character dengan ada huruf kecil, besar dan Nomor')</script>";
+	$symbol    = preg_match('/[^\p{L}\d\s@#]/u', $password);
+
+	echo $uppercase;
+	echo $lowercase;
+	echo $number;
+	echo $symbol;
+
+
+	if(!$uppercase || !$lowercase || !$number || !$symbol || strlen($password) < 8) {
+		echo "<script>alert('Password minimal 8 Character dengan ada huruf kecil, besar, symbol dan Nomor')</script>";
 		echo "<script>window.location='javascript:history.go(-1)';</script>";
 
 	}else{
@@ -44,8 +52,11 @@ if(isset($_POST['tambah']))
 	$uppercase = preg_match('@[A-Z]@', $password);
 	$lowercase = preg_match('@[a-z]@', $password);
 	$number    = preg_match('@[0-9]@', $password);
-	if(!$uppercase || !$lowercase || !$number || strlen($password) < 8) {
-		echo "<script>alert('Password minimal 8 Character dengan ada huruf kecil, besar dan Nomor')</script>";
+	$symbol    = preg_match('/[^\p{L}\d\s@#]/u', $password);
+
+
+	if(!$uppercase || !$lowercase || !$number || !$symbol || strlen($password) < 8) {
+		echo "<script>alert('Password minimal 8 Character dengan ada huruf kecil, besar, symbol dan Nomor')</script>";
 		echo "<script>window.location='javascript:history.go(-1)';</script>";
 
 	}else{

@@ -107,6 +107,21 @@
                   </tr>
                 <?php }}?>
               </table>
+
+              <?php if(isset($_POST['par1'])){
+                $_SESSION['laporan']['judul']="Laporan Buku Besar";
+                $_SESSION['laporan']['periode'] =tgl_indo($_POST['par1'])." S/d ".tgl_indo($_POST['par2']);
+                $_SESSION['laporan']['sql']=$query;
+                $_SESSION['laporan']['unit']=caridata($mysqli,"select nama_unit from tb_unit where id_unit='".$_GET['id']."'");
+                if($_POST['id_akun']=='Semua')
+                  $_SESSION['laporan']['akun']='Semua Akun';
+                else
+                  $_SESSION['laporan']['akun']=caridata($mysqli,"select nama_akun from tb_akun where kode_akun='".$_POST['id_akun']."'");
+
+                ?>
+                <a href="lap_buku_besar_pdf.php" target="_blank" style="float: right;margin-top: 10px;" class="btn btn-success"><i class="fa fa-print"></i> Cetak PDF</a>
+
+              <?php } ?>
             </div>
             <!-- /.card-body -->
           </div>

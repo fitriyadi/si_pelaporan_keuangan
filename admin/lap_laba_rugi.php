@@ -52,9 +52,9 @@
           <table class="table table-bordered table-hover">
             <?php
             $kreditall=0;
-            $queryz      = "SELECT * from tb_transaksi join tb_kegiatan using(id_kegiatan) join tb_akun using(kode_akun) where tb_akun.kode_akun like '4%' and id_unit='$id_unit' and (tanggal between '$par1' and '$par2')";
+            $query      = "SELECT * from tb_transaksi join tb_kegiatan using(id_kegiatan) join tb_akun using(kode_akun) where tb_akun.kode_akun like '4%' and id_unit='$id_unit' and (tanggal between '$par1' and '$par2')";
 
-            $resultz     = $mysqli->query($queryz);
+            $resultz     = $mysqli->query($query);
             $num_resultz = $resultz->num_rows;
             if ($num_resultz > 0) {
 
@@ -94,20 +94,30 @@
              <th colspan="3">Total Pengeluaran</th>
              <th><?=number_format(($debetall),0)?></th>
            </tr>
-            <tr>
+           <tr>
              <th colspan="3">Laba Rugi Berish</th>
              <th><?=number_format(($kreditall-$debetall),0)?></th>
            </tr>
          </tbody>
        </table>
-
-
      <?php } ?>
 
-   </div>
-   <!-- /.card-body -->
- </div>
- <!-- /.card -->
+     <?php if(isset($_POST['par1'])){
+      $_SESSION['laporan']['judul']="Laporan Laba Rugi";
+      $_SESSION['laporan']['periode'] =tgl_indo($_POST['par1'])." S/d ".tgl_indo($_POST['par2']);
+      $_SESSION['laporan']['sql1']=$query;
+      $_SESSION['laporan']['sql2']=$queryz;
+      $_SESSION['laporan']['unit']=caridata($mysqli,"select nama_unit from tb_unit where id_unit='".$_GET['id']."'");
+
+      ?>
+      <a href="lap_laba_rugi_pdf.php" target="_blank" style="float: right;margin-top: 10px;" class="btn btn-success"><i class="fa fa-print"></i> Cetak PDF</a>
+
+    <?php } ?>
+
+  </div>
+  <!-- /.card-body -->
+</div>
+<!-- /.card -->
 </div>
 <!-- /.col -->
 </div>

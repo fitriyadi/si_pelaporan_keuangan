@@ -1,33 +1,53 @@
- <link rel="stylesheet" href="assets/dist/css/adminlte.min.css">
- 
 <?php
 // include autoloader
-
-
 require_once 'dompdf/autoload.inc.php';
+require_once 'dompdf/style.php';
 
 use Dompdf\Dompdf;
 
-$data='
-<div class="content-header">
-  <div class="container-fluid">
-    <div class="row mb-2">
-      <div class="col-sm-6">
-        <h1 class="m-0 text-dark">Data akun</h1>
-      </div><!-- /.col -->
-      <div class="col-sm-5">
-      </div>
-      <div class="col-sm-1">
-        <a href="?hal=akun_olah" style="float: right;" class="btn btn-block bg-gradient-primary btn-sm">Tambah</a>
-      </div><!-- /.col -->
-    </div><!-- /.row -->
-  </div><!-- /.container-fluid -->
-</div>
-';
+$style=f_bootsrap();
+$judul=$_SESSION['judul'];
+$periode=$_SESSION['laporan']['periode'];
+
+$header='<h1 align="center"> $judul </h1>';
+$tanggal='<p align="center"> Periode : $tanggal';
+$isi='<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th align="left">Name</th>
+            <th >Points</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Dom</td>
+            <td>6000</td>
+        </tr>
+        <tr>
+            <td>Melissa</td>
+            <td>5150</td>
+        </tr>
+         <tr>
+            <td>Melissa</td>
+            <td>5150</td>
+        </tr>
+         <tr>
+            <td>Melissa</td>
+            <td>5150</td>
+        </tr>
+         <tr>
+            <td>Melissa</td>
+            <td>5150</td>
+        </tr>
+    </tbody>
+</table>';
+
+
+echo $style.$header.$tanggal.$isi;
 
 // instantiate and use the dompdf class
 $dompdf = new Dompdf();
-$dompdf->loadHtml($data);
+$dompdf->loadHtml($style.$header.$tanggal.$isi);
 
 // (Optional) Setup the paper size and orientation
 $dompdf->setPaper('A4', 'landscape');
@@ -36,6 +56,9 @@ $dompdf->setPaper('A4', 'landscape');
 $dompdf->render();
 
 // Output the generated PDF to Browser
-$dompdf->stream();
+//$dompdf->stream();
 
 ?>
+
+
+</tr>

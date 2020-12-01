@@ -32,7 +32,7 @@
           $par2="";
         }
         ?>
-        <form role="form" id="quickForm" action="?hal=lap_perubahan_modal" method="post">
+        <form role="form" id="quickForm" action="?hal=lap_perubahan_modal&id=<?=$id_unit?>" method="post">
           <div class="form-group row">
             <label  for="nama" class="col-2 m-2">Periode Tanggal</label>
 
@@ -79,6 +79,20 @@
               </tr>
             </tbody>
           </table>
+        <?php } ?>
+
+        <?php if(isset($_POST['par1'])){
+          $_SESSION['laporan']['judul']="Laporan Perubahan Modal";
+          $_SESSION['laporan']['periode'] =tgl_indo($_POST['par1'])." S/d ".tgl_indo($_POST['par2']);
+          $_SESSION['laporan']['modal']=$modal;
+          $_SESSION['laporan']['prive']=$prive;
+          $_SESSION['laporan']['labarugi']=$labarugi;
+          $_SESSION['laporan']['modalakhir']=$modalakhir;
+          $_SESSION['laporan']['unit']=caridata($mysqli,"select nama_unit from tb_unit where id_unit='".$_SESSION['id']."'");
+
+          ?>
+          <a href="lap_perubahan_modal_pdf.php" target="_blank" style="float: right;margin-top: 10px;" class="btn btn-success"><i class="fa fa-print"></i> Cetak PDF</a>
+
         <?php } ?>
 
       </div>
