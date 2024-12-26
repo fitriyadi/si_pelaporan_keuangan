@@ -19,17 +19,21 @@ $unit=$_SESSION['laporan']['unit'];
 $sql=$_SESSION['laporan']['sql'];
 $sql1=$_SESSION['laporan']['sql1'];
 
+$granddebet=0;
+$grandkredit=0;
 
 $header='<h1 align="center" style="margin:0px">'.$judul.'</h1>';
 $header=$header.'<h4 align="center" style="margin:0px"> Unit : '.$unit.' </h4>';
 $periode='<p align="center" style="margin:0px"> Periode : '.$periode.'</p><h1>';
 $isi='';
+$no=0;
 $query      = $sql;
 $result     = $mysqli->query($query);
 $num_result = $result->num_rows;
 if ($num_result > 0) {
 while ($data = mysqli_fetch_assoc($result)) {
   extract($data);
+  $no++;
 
 $isi=$isi.'<table class="table table-bordered table-hover">
 	    <thead>
@@ -48,6 +52,7 @@ $isi=$isi.'<table class="table table-bordered table-hover">
 	  $num_resultz = $resultz->num_rows;
 	  if ($num_resultz > 0) {
 
+
 	    while ($dataz = mysqli_fetch_assoc($resultz)) {
 	    	$debetall+=$dataz['debet'];
             $kreditall+=$dataz['kredit'];
@@ -58,15 +63,32 @@ $isi=$isi.'<table class="table table-bordered table-hover">
 	        $isi=$isi.'<td>'.number_format($dataz['kredit'],0).'</td>';
 	      	$isi=$isi.'</tr>';
 	    }
+
+		$isi=$isi.'<tr>';
+		$isi=$isi.'<th>Total</th>';
+		$isi=$isi.'<th>'.number_format(($debetall),0).'</th>';$granddebet+=$debetall;
+		$isi=$isi.'<th>'.number_format(($kreditall),0).'</th>';$grandkredit+=$kreditall;
+		$isi=$isi.'</tr>';
+	
+		$isi=$isi.'<tr>';
+		$isi=$isi.'<th colspan="3"></th>';
+		$isi=$isi.' <th>'.number_format(($debetall-$kreditall),0).'</th>';
+		$isi=$isi.'</tr>';
 	}
-	$isi=$isi.'<th colspan="3"></th>';
-	$isi=$isi.' <th>'.number_format(($debetall-$kreditall),0).'</th>';
+
+	if($num_result==$no){
+		$isi=$isi.'<tr>';
+		$isi=$isi.'<th>Total Keseluruhan</th>';
+		$isi=$isi.' <th>'.number_format(($granddebet),0).'</th>';
+		$isi=$isi.' <th>'.number_format(($grandkredit),0).'</th>';
+		$isi=$isi.' <th>'.number_format(($granddebet-$grandkredit),0).'</th>';
+		$isi=$isi.'</tr>';
+	}
 
 	$isi=$isi.'</tbody></table>';
+
 	}
 }
-
-//echo $style.$header.$periode.$isi;
 
 // instantiate and use the dompdf class
 $dompdf = new Dompdf();

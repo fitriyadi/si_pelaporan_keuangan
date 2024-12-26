@@ -49,6 +49,8 @@
         <hr>
 
         <?php if(isset($_POST['par1'])){
+          $granddebet=0;
+          $grandkredit=0;
           $query      = "SELECT * from tb_index where id_index !=0 order by keterangan asc";
           $result     = $mysqli->query($query);
           $num_result = $result->num_rows;
@@ -84,18 +86,31 @@
                         <td><?php echo number_format($dataz['kredit'],0); ?></td>
                       </tr>
                     <?php }} ?>
+                    <tr>
+                    <th>Total</th>
+                    <th><?=number_format(($debetall),0);$granddebet+=$debetall;?></th>
+                    <th><?=number_format(($kreditall),0);$grandkredit+=$kreditall;?></th>
+                    <tr>
                     <th colspan="3"></th>
                     <th><?=number_format(($debetall-$kreditall),0)?></th>
-                  </tbody>
-                </table>
-              <?php } } } ?>
+                    </tr>
+              <?php } ?>
+                  <tr>
+                    <th>Total Keseluruhan</th>
+                    <th><?=number_format(($granddebet),0);?></th>
+                    <th><?=number_format(($grandkredit),0)?></th>
+                    <th><?=number_format(($granddebet-$grandkredit),0)?></th>
+                    <tr>
+              </tbody>
+              </table>
+            <?php } } ?>
 
               <?php if(isset($_POST['par1'])){
                 $_SESSION['laporan']['judul']="Laporan Arus Kas";
                 $_SESSION['laporan']['periode'] =tgl_indo($_POST['par1'])." S/d ".tgl_indo($_POST['par2']);
                 $_SESSION['laporan']['sql']=$query;
                 $_SESSION['laporan']['sql1']=" and id_unit='$id_unit' and (tanggal between '".$_POST['par1']."' and '".$_POST['par2']."')";
-                $_SESSION['laporan']['unit']=caridata($mysqli,"select nama_unit from tb_unit where id_unit='".$_SESSION['id']."'");
+                $_SESSION['laporan']['unit']=caridata($mysqli,"select nama_unit from tb_unit where id_unit='".$_GET['id']."'");
 
                 ?>
                 <a href="lap_arus_kas_pdf.php" target="_blank" style="float: right;margin-top: 10px;" class="btn btn-success"><i class="fa fa-print"></i> Cetak PDF</a>

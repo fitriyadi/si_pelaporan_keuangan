@@ -38,6 +38,8 @@ $isi='<table class="table table-bordered table-hover">
     <tbody>';
 
       $saldo=0;
+	  $debelAll=0;
+	  $kreditAll=0;
 	  $query      = $sql;
 	  $result     = $mysqli->query($query);
 	  $num_result = $result->num_rows;
@@ -48,15 +50,24 @@ $isi='<table class="table table-bordered table-hover">
 	      $saldo+=$debet;
 	      $saldo-=$kredit;
 
-	      	$isi=$isi.'<tr>';
-	       	$isi=$isi.'<td>'.$id_transaksi.'</td>';
-	        $isi=$isi.'<td>'.tgl_indo($tanggal).'</td>';
-	        $isi=$isi.'<td>'.$keterangan.'</td>';
-	        $isi=$isi.'<td>'.number_format($debet,0).'</td>';
-	        $isi=$isi.'<td>'.number_format($kredit,0).'</td>';
-	        $isi=$isi.'<th>'.number_format($saldo,0).'</th>';
-	      	$isi=$isi.'</tr>';
+		$isi=$isi.'<tr>';
+		$isi=$isi.'<td>'.$id_transaksi.'</td>';
+		$isi=$isi.'<td>'.tgl_indo($tanggal).'</td>';
+		$isi=$isi.'<td>'.$keterangan.'</td>';
+		$isi=$isi.'<td>'.number_format($debet,0).'</td>';$debelAll+=$debet;
+		$isi=$isi.'<td>'.number_format($kredit,0).'</td>';$kreditAll+=$kredit;
+		$isi=$isi.'<th>'.number_format($saldo,0).'</th>';
+		$isi=$isi.'</tr>';
 	    }
+
+		$isi=$isi.'<tr>';
+		$isi=$isi.'<th>Total </th>';
+		$isi=$isi.'<th>-</th>';
+		$isi=$isi.'<th>-</th>';
+		$isi=$isi.'<th>'.number_format($debelAll,0).'</th>';
+		$isi=$isi.'<th>'.number_format($kreditAll,0).'</th>';
+		$isi=$isi.'<th>-</th>';
+		$isi=$isi.'</tr>';
 	}
 
 $isi=$isi.'</tbody></table>';

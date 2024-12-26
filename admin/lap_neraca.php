@@ -23,6 +23,7 @@
         <!-- /.card-header -->
         <div class="card-body">
           <?php
+          $grandtotal=0;
           $id_unit=$_GET['id'];
           if(isset($_POST['par1'])){
            $par1=$_POST['par1'];
@@ -74,7 +75,7 @@
            <?php }} ?>
            <tr>
             <th colspan="2">Total</th>
-            <th><?=number_format(($debetall),0)?></th>
+            <th><?=number_format(($debetall),0);$grandtotal+=$debetall?></th>
           </tr>
           <tr>
             <th colspan="4">Aktifa Tetap</th>
@@ -99,7 +100,7 @@
            <?php }} ?>
            <tr>
              <th colspan="2">Total</th>
-             <th><?=number_format(($debetall),0)?></th>
+             <th><?=number_format(($debetall),0);$grandtotal+=$debetall?></th>
            </tr>
          </tbody>
        </table>
@@ -126,7 +127,11 @@
          <?php }} ?>
          <tr>
            <th colspan="2">Total Pasifa</th>
-           <th><?=number_format(($debetall),0)?></th>
+           <th><?=number_format(($debetall),0);$grandtotal+=$debetall?></th>
+         </tr>
+         <tr>
+           <th colspan="2">Grand Total</th>
+           <th><?=number_format(($grandtotal),0)?></th>
          </tr>
        </tbody>
      </table>

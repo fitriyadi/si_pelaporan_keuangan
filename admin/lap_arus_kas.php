@@ -49,6 +49,8 @@
         <hr>
 
         <?php if(isset($_POST['par1'])){
+          $granddebet=0;
+          $grandkredit=0;
           $query      = "SELECT * from tb_index where id_index !=0 order by keterangan asc";
           $result     = $mysqli->query($query);
           $num_result = $result->num_rows;
@@ -84,11 +86,24 @@
                         <td><?php echo number_format($dataz['kredit'],0); ?></td>
                       </tr>
                     <?php }} ?>
+                    <tr>
+                    <th>Total</th>
+                    <th><?=number_format(($debetall),0);$granddebet+=$debetall;?></th>
+                    <th><?=number_format(($kreditall),0);$grandkredit+=$kreditall;?></th>
+                    <tr>
                     <th colspan="3"></th>
                     <th><?=number_format(($debetall-$kreditall),0)?></th>
-                  </tbody>
-                </table>
-              <?php } } } ?>
+                    </tr>
+              <?php } ?>
+                  <tr>
+                    <th>Total Keseluruhan</th>
+                    <th><?=number_format(($granddebet),0);?></th>
+                    <th><?=number_format(($grandkredit),0)?></th>
+                    <th><?=number_format(($granddebet-$grandkredit),0)?></th>
+                    <tr>
+              </tbody>
+              </table>
+            <?php } } ?>
 
               <?php if(isset($_POST['par1'])){
                 $_SESSION['laporan']['judul']="Laporan Arus Kas";

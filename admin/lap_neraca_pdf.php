@@ -13,6 +13,7 @@ require_once '../dompdf/style.php';
 use Dompdf\Dompdf;
 
 $style=f_bootsrap();
+$grandtotal=0;
 $judul=$_SESSION['laporan']['judul'];
 $periode=$_SESSION['laporan']['periode'];
 $unit=$_SESSION['laporan']['unit'];
@@ -48,7 +49,7 @@ if ($num_resultz > 0) {
 } 
 $isi=$isi.'<tr>';
 $isi=$isi.'<th colspan="2">Total</th>';
-$isi=$isi.'<th>'.number_format(($debetall),0).'</th>';
+$isi=$isi.'<th>'.number_format(($debetall),0).'</th>';$grandtotal+=$debetall;
 $isi=$isi.'</tr>';
 $isi=$isi.'<tr>';
 $isi=$isi.'<th colspan="3">Aktifa Tetap</th>';
@@ -72,7 +73,7 @@ if ($num_resultz > 0) {
 }
 $isi=$isi.'<tr>';
 $isi=$isi.'<th colspan="2">Total</th>';
-$isi=$isi.'<th>'.number_format(($debetall),0).'</th>';
+$isi=$isi.'<th>'.number_format(($debetall),0).'</th>';$grandtotal+=$debetall;
 $isi=$isi.'</tr>';
 $isi=$isi.'</tbody>';
 $isi=$isi.'</table>';
@@ -97,7 +98,11 @@ if ($num_resultz > 0) {
 }
 $isi=$isi.'<tr>';
 $isi=$isi.'<th colspan="2">Total Pasifa</th>';
-$isi=$isi.'<th>'.number_format(($debetall),0).'</th>';
+$isi=$isi.'<th>'.number_format(($debetall),0).'</th>';$grandtotal+=$debetall;
+$isi=$isi.'</tr>';
+$isi=$isi.'<tr>';
+$isi=$isi.'<th colspan="2">Grand Total</th>';
+$isi=$isi.'<th>'.number_format(($grandtotal),0).'</th>';
 $isi=$isi.'</tr>';
 $isi=$isi.'</tbody>';
 $isi=$isi.'</table>';

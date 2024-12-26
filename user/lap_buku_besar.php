@@ -87,6 +87,8 @@
             <tbody>
               <?php
               $saldo=0;
+              $debelAll=0;
+              $kreditAll=0;
               $query      = "SELECT * from tb_transaksi join tb_kegiatan using(id_kegiatan) $where";
               $result     = $mysqli->query($query);
               $num_result = $result->num_rows;
@@ -101,18 +103,27 @@
                     <td><?php echo $id_transaksi; ?></td>
                     <td><?php echo tgl_indo($tanggal); ?></td>
                     <td><?php echo $keterangan; ?></td>
-                    <td><?php echo number_format($debet,0); ?></td>
-                    <td><?php echo number_format($kredit,0); ?></td>
+                    <td><?php echo number_format($debet,0);$debelAll+=$debet; ?></td>
+                    <td><?php echo number_format($kredit,0);$kreditAll+=$kredit; ?></td>
                     <th><?php echo number_format($saldo,0); ?></th>
                   </tr>
-                <?php }}?>
+                  <?php } ?>
+                  <tr>
+                  <th>Total</th>
+                  <th>-</th>
+                  <th>-</th>
+                  <th><?php echo number_format($debelAll,0); ?></th>
+                  <th><?php echo number_format($kreditAll,0); ?></th>
+                  <th>-</th>
+                  </tr>
+                <?php }?>
               </table>
 
               <?php if(isset($_POST['par1'])){
                 $_SESSION['laporan']['judul']="Laporan Buku Besar";
                 $_SESSION['laporan']['periode'] =tgl_indo($_POST['par1'])." S/d ".tgl_indo($_POST['par2']);
                 $_SESSION['laporan']['sql']=$query;
-                $_SESSION['laporan']['unit']=caridata($mysqli,"select nama_unit from tb_unit where id_unit='".$_SESSION['id']."'");
+                $_SESSION['laporan']['unit']=caridata($mysqli,"select nama_unit from tb_unit where id_unit='".$_GET['id']."'");
                 if($_POST['id_akun']=='Semua')
                   $_SESSION['laporan']['akun']='Semua Akun';
                 else
@@ -120,7 +131,7 @@
 
                 ?>
                 <a href="lap_buku_besar_pdf.php" target="_blank" style="float: right;margin-top: 10px;" class="btn btn-success"><i class="fa fa-print"></i> Cetak PDF</a>
-
+                <a href="lap_buku_besar_xls.php" target="_blank" style="float: right;margin-top: 10px;margin-right:5px" class="btn btn-primary"><i class="fa fa-file-excel"></i> Export XLS</a>
               <?php } ?>
             </div>
             <!-- /.card-body -->
